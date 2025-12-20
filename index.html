@@ -4,12 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rach Tours</title>
-    <link rel="stylesheet" href="tooplate-bistro-elegance.css?v=2.0" />
+    <link rel="stylesheet" href="tooplate-bistro-elegance.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   </head>
   <body>
     <!-- Navigation -->
@@ -37,7 +35,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-      <!-- div class="diagonal-grid"></div -->
+      <div class="diagonal-grid"></div>
 
       <div class="static-decoration"></div>
       <div class="bottom-right-decoration"></div>
@@ -94,7 +92,7 @@
     <section id="local-tours">
       <h2>
         Local Tours & Experiences
-        <button class="select-all-btn" data-category="Local Tours & Experiences" onclick="toggleAllInSection('Local Tours & Experiences', this)">
+        <button class="select-all-btn" onclick="toggleAllInSection('Local Tours & Experiences', this)">
           Select All
         </button>
       </h2>
@@ -359,7 +357,7 @@
     <section id="day-trips">
       <h2>
         Day Trips & Excursions
-        <button class="select-all-btn" data-category="Day Trips & Excursions" onclick="toggleAllInSection('Day Trips & Excursions', this)">
+        <button class="select-all-btn" onclick="toggleAllInSection('Day Trips & Excursions', this)">
           Select All
         </button>
       </h2>
@@ -605,7 +603,7 @@
     <section id="unique-attractions">
       <h2>
         Unique Attractions
-        <button class="select-all-btn" data-category="Unique Attractions" onclick="toggleAllInSection('Unique Attractions', this)">
+        <button class="select-all-btn" onclick="toggleAllInSection('Unique Attractions', this)">
           Select All
         </button>
       </h2>
@@ -810,7 +808,13 @@
     <!-- Footer -->
     <footer id="contact">
       <div class="footer-content">
-
+        <!-- <div class="footer-section">
+           <h3>Opening days</h3>
+           <p>
+             All Days<br />
+             <br />Opening Hours from 9 AM to 7 PM<br />
+           </p>
+         </div> -->
         <div class="footer-section center-text">
           <h3>Contact Us</h3>
           <div class="social-pill mt-1">
@@ -872,7 +876,7 @@
       </div>
     </div>
 
-    <script src="tooplate-bistro-scripts.js?v=2.0"></script>
+    <script src="tooplate-bistro-scripts.js"></script>
     <!-- Fixed Special Requests Panel -->
     <!-- Custom Notification Toast -->
     <!-- Custom Notification Toast -->

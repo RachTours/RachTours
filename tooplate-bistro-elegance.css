@@ -36,14 +36,12 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
   z-index: 1000;
-  padding: 1rem 2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem 2rem; /* Adjusted padding */
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .nav-container {
@@ -121,41 +119,51 @@ nav {
   transition: 0.3s;
 }
 
-/* 
-   --------------------------------------------------------------
-   TABLE OF CONTENTS
-   --------------------------------------------------------------
-   1.  Variables & Base Styles
-   2.  Navigation
-   3.  Hero Section
-   4.  Buttons (CTA, Submit, Select All)
-   5.  Animations (Keyframes)
-   6.  Sections & Typography
-   7.  Menu Grid & Cards
-   8.  Modals (Details, Confirmation)
-   9.  Cart / Selected Tours Display
-   10. Form Styles
-   11. Flatpickr Custom Theme
-   12. Footer
-   --------------------------------------------------------------
-*/
-
-/* Hero Section */
+/* Hero Section with Diagonal Grid */
 .hero {
   background-color: #ffffff;
   margin-top: 50px;
-  min-height: 90vh;
+  min-height: 90vh; /* Changed to min-height */
   height: auto;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 80px 0;
+  padding: 80px 0; /* Add padding for content safety */
 }
 
 .diagonal-grid {
-  display: none;
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.soft-block {
+  visibility: hidden;
+  position: absolute;
+  height: 800px;
+  background: #f0f0f0;
+  transform: rotate(45deg);
+  animation: moveBackForth 20s ease-in-out infinite;
+  border-radius: 5px;
+  opacity: 0.4;
+}
+
+@keyframes moveBackForth {
+  0%,
+  100% {
+    transform: translateX(-50px) rotate(45deg);
+  }
+
+  50% {
+    transform: translateX(50px) rotate(45deg);
+  }
 }
 
 .static-decoration {
@@ -270,24 +278,6 @@ select {
   background-color: #f9f9f9;
   transition: all 0.3s ease;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-/* Custom Time and Date Input Styling */
-input[type="time"]::-webkit-calendar-picker-indicator,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  background-color: transparent;
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 3px;
-  color: var(--primary-color);
-  opacity: 0.6;
-  transition: 0.3s;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator:hover,
-input[type="date"]::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
-  background-color: rgba(254, 180, 123, 0.2);
 }
 
 input:focus,
@@ -519,25 +509,22 @@ h2::after {
 }
 
 .select-all-btn {
-  background: rgba(255, 126, 95, 0.1);
+  background: none;
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
-  padding: 6px 18px;
+  padding: 5px 15px;
   border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.8rem;
   cursor: pointer;
   margin-left: 15px;
   vertical-align: middle;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 
 .select-all-btn.active,
 .select-all-btn:hover {
   background: var(--primary-color);
   color: white;
-  box-shadow: 0 4px 12px rgba(255, 126, 95, 0.2);
-  transform: translateY(-1px);
 }
 
 /* Menu Section */
@@ -2223,63 +2210,25 @@ input[type="number"] {
   background-color: #fff;
 } /* Ensure consistent styling for new input types */
 
-/* --- Flatpickr Custom Theme (Premium) --- */
-.flatpickr-calendar {
-  background: #ffffff;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  font-family: "Inter", sans-serif;
-  padding: 10px;
-  width: auto !important;
+/* Custom Time Input Styling */
+input[type="time"] {
+  position: relative;
+  padding-right: 30px;
+  cursor: pointer;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23555" class="bi bi-clock" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
 }
 
-.flatpickr-time {
-  max-height: none !important;
-  padding: 15px 0;
-  border-top: none !important;
-}
-
-.flatpickr-time input {
-  font-size: 1.5rem !important;
-  font-weight: 700;
-  color: var(--text-dark);
-  background: transparent;
-}
-
-.flatpickr-time .flatpickr-am-pm {
-  height: auto;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--primary-color);
-}
-
-.flatpickr-time input:focus,
-.flatpickr-time .flatpickr-am-pm:focus {
-  background: rgba(255, 126, 95, 0.05);
-  border-radius: 8px;
-}
-
-.flatpickr-time input:hover,
-.flatpickr-time .flatpickr-am-pm:hover {
-  background: rgba(255, 126, 95, 0.05);
-}
-
-/* Arrow styling */
-.flatpickr-time .numInputWrapper span.arrowUp:after {
-  border-bottom-color: var(--primary-color);
-}
-
-.flatpickr-time .numInputWrapper span.arrowDown:after {
-  border-top-color: var(--primary-color);
-}
-
-/* Hover effects for arrows */
-.flatpickr-time .numInputWrapper span:hover {
-  background: rgba(255, 126, 95, 0.1);
-}
-
-/* Ensure mobile friendly */
-.flatpickr-mobile {
-  height: auto;
+input[type="time"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }

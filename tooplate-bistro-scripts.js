@@ -1,10 +1,7 @@
-/**
- * RachTours - Core Application Logic
- * Handles navigation, tour selection (cart), modal interactions, and WhatsApp reservation dispatch.
- *
- * @version 2.0.0
- * @license Proprietary
- */
+// JavaScript Document
+
+// Tooplate 2148 Bistro Elegance
+// https://www.tooplate.com/view/2148-bistro-elegance
 
 // Mobile menu toggle
 const menuToggle = document.querySelector(".menu-toggle");
@@ -67,7 +64,67 @@ function updateActiveNavItem() {
   });
 }
 
-// [REMOVED] Diagonal Grid Logic (Performance Optimization)
+// Generate diagonal elements for entire home area
+function createDiagonalGrid() {
+  const grid = document.querySelector(".diagonal-grid");
+  if (!grid) return;
+
+  const blocks = [
+    {
+      width: 80,
+      bottom: -400,
+      left: -100,
+      delay: 0,
+      duration: 22,
+    },
+    {
+      width: 60,
+      bottom: -300,
+      left: 100,
+      delay: 2,
+      duration: 20,
+    },
+    {
+      width: 100,
+      bottom: -370,
+      left: 350,
+      delay: 1,
+      duration: 24,
+    },
+    {
+      width: 70,
+      bottom: -230,
+      left: 200,
+      delay: 1.5,
+      duration: 21,
+    },
+    {
+      width: 90,
+      bottom: -170,
+      left: 500,
+      delay: 0.5,
+      duration: 23,
+    },
+    {
+      width: 50,
+      bottom: -270,
+      left: 400,
+      delay: 3,
+      duration: 25,
+    },
+  ];
+
+  blocks.forEach((block) => {
+    const element = document.createElement("div");
+    element.className = "soft-block";
+    element.style.width = `${block.width}px`;
+    element.style.bottom = `${block.bottom}px`;
+    element.style.left = `${block.left}px`;
+    element.style.animationDelay = `${block.delay}s`;
+    element.style.animationDuration = `${block.duration}s`;
+    grid.appendChild(element);
+  });
+}
 
 // Create static decoration blocks
 function createStaticDecoration() {
@@ -199,13 +256,7 @@ function createBottomRightDecoration() {
 
 // --- E-Commerce / Cart Logic ---
 
-// --- 1. Data Layer ---
-
-/**
- * Centralized definition of all tour products.
- * Includes metadata for pricing, categorization, and feature details.
- * @const {Object}
- */
+// Centralized Tour Data
 const TOURS = {
   "souk-tour": {
     title: "Agadir Souk El Had Half Day Tour",
@@ -497,23 +548,11 @@ const TOURS = {
   },
 };
 
-// --- 2. State Management ---
-
 let selectedTours = []; // Array of tour IDs
 
-/**
- * Toggles a tour's presence in the shopping cart.
- * Updates the UI button state immediately.
- *
- * @param {HTMLElement} btn - The button element triggered by the click
- * @param {string} tourId - The unique ID of the tour
- */
 function toggleTour(btn, tourId) {
   const tour = TOURS[tourId];
-  if (!tour) {
-    console.error("Tour not found:", tourId);
-    return;
-  }
+  if (!tour) return;
 
   const index = selectedTours.indexOf(tourId);
 
@@ -532,91 +571,92 @@ function toggleTour(btn, tourId) {
   }
 
   updateSelectedToursDisplay();
+  updateSectionHelperButtons();
 }
 
-/**
- * Bulk toggles all tours within a specific category.
- * - If ANY items in the section are selected, it clears them.
- * - If NO items are selected, it selects all available in that category.
- *
- * @param {string} category - The category ID/Name to toggle
- * @param {HTMLElement} btn - The "Select All" button element
- */
 function toggleAllInSection(category, btn) {
   // Find all tours in this category
   const tourIds = Object.keys(TOURS).filter(
     (key) => TOURS[key].category === category
   );
 
-  // Check if ANY are currently selected
-  const anySelected = tourIds.some((id) => selectedTours.includes(id));
+  // Check how many are currently selected
+  const selectedCount = tourIds.filter((id) =>
+    selectedTours.includes(id)
+  ).length;
 
-  if (anySelected) {
-    // Unselect all (Clear logic)
+  if (selectedCount > 0) {
+    // If ANY post is selected, "Select All" acts as "Unselect All"
+    // Remove all items of this category from selectedTours
     tourIds.forEach((id) => {
       const index = selectedTours.indexOf(id);
       if (index > -1) selectedTours.splice(index, 1);
     });
-    // Visual update handles button text
+    // Visual updates handled by updateAllButtons
   } else {
-    // Select all (avoid duplicates)
+    // If NO posts are selected, select ALL
     tourIds.forEach((id) => {
       if (!selectedTours.includes(id)) selectedTours.push(id);
     });
-    // Visual update handles button text
   }
 
-  // Update Visuals for individual buttons
+  // Update Visuals
   updateAllButtons();
   updateSelectedToursDisplay();
 }
 
-function updateSectionSelectAllButton(category) {
-  // Helper to update the "Select All" button state when individual items change
-  // Use data attribute for robust selection
-  const btn = document.querySelector(`button[data-category="${category}"]`);
-  if (!btn) return;
+function updateSectionHelperButtons() {
+  const categories = [...new Set(Object.values(TOURS).map((t) => t.category))];
 
-  const tourIds = Object.keys(TOURS).filter(
-    (key) => TOURS[key].category === category
-  );
-  // Logic: If ANY are selected, the button should offer to "Unselect All"
-  const anySelected = tourIds.some((id) => selectedTours.includes(id));
+  categories.forEach((category) => {
+    // Find the button for this category by onclick attribute
+    // Using a broad selector and filtering is safer than expecting a specific ID
+    const allBtns = document.querySelectorAll(".select-all-btn");
+    allBtns.forEach((btn) => {
+      const onclick = btn.getAttribute("onclick");
+      if (onclick && onclick.includes(`'${category}'`)) {
+        const tourIds = Object.keys(TOURS).filter(
+          (key) => TOURS[key].category === category
+        );
+        const selectedCount = tourIds.filter((id) =>
+          selectedTours.includes(id)
+        ).length;
 
-  if (anySelected) {
-    // If ANY item is selected, the button allows clearing the section
-    btn.innerText = "Unselect All";
-    btn.classList.add("active");
-  } else {
-    // If NO items are selected, payment allows selecting all
-    btn.innerText = "Select All";
-    btn.classList.remove("active");
-  }
+        if (selectedCount > 0) {
+          // If ANY item selected => "Unselect All"
+          btn.innerText = "Unselect All";
+          btn.classList.add("active");
+        } else {
+          // If NONE selected => "Select All"
+          btn.innerText = "Select All";
+          btn.classList.remove("active");
+        }
+      }
+    });
+  });
 }
 
 function updateAllButtons() {
   const buttons = document.querySelectorAll(".add-to-plan-btn");
-  buttons.forEach((btn, index) => {
+  buttons.forEach((btn) => {
+    // We need to look up the tourId from the onclick attribute string
+    // Format: toggleTour(this, 'cms-id')
     const onclick = btn.getAttribute("onclick");
     if (onclick) {
       const match = onclick.match(/'([^']+)'/);
       if (match && match[1]) {
         const tourId = match[1];
-        const isSelected = selectedTours.includes(tourId);
-
-        // Staggered animation effect for bulk updates
-        setTimeout(() => {
-          if (isSelected) {
-            btn.innerHTML = '<i class="fas fa-check"></i>';
-            btn.classList.add("selected");
-          } else {
-            btn.innerHTML = '<i class="fas fa-plus"></i>';
-            btn.classList.remove("selected");
-          }
-        }, index * 20); // 20ms stagger
+        if (selectedTours.includes(tourId)) {
+          btn.innerHTML = '<i class="fas fa-check"></i>';
+          btn.classList.add("selected");
+        } else {
+          btn.innerHTML = '<i class="fas fa-plus"></i>';
+          btn.classList.remove("selected");
+        }
       }
     }
   });
+  updateSectionHelperButtons();
 }
 
 function updateSelectedToursDisplay() {
@@ -630,13 +670,6 @@ function updateSelectedToursDisplay() {
   // New Total Elements targets
   const totalContainer = document.getElementById("reservation-total-container");
   const totalValueSpan = document.getElementById("reservation-total-value");
-
-  // Critical Fix: Update ALL section buttons every time selection changes.
-  // This ensures that if a category becomes empty (or the whole list), the button reverts to "Select All".
-  const allCategories = [
-    ...new Set(Object.values(TOURS).map((t) => t.category)),
-  ];
-  allCategories.forEach((cat) => updateSectionSelectAllButton(cat));
 
   // Show/Hide container based on selection
   if (selectedTours.length === 0) {
@@ -669,46 +702,46 @@ function updateSelectedToursDisplay() {
     totalPrice += tour.price * guestCount;
   });
 
-  // Join all parts
-  let messageText = "";
+  // Generate HTML (List Only)
   let html = "";
+  // Generate Text for Message (Structured)
+  let messageText = "";
 
   for (const [category, tours] of Object.entries(groups)) {
     // Calculate Section Total
-    let sectionTotal = 0;
-    tours.forEach((t) => (sectionTotal += t.price * guestCount));
+    const sectionTotal = tours.reduce(
+      (sum, t) => sum + t.price * guestCount,
+      0
+    );
 
     // 1. HTML Display
     html += `<div class="tour-list-category">
               <h5>${category}</h5>`;
 
-    // 2. Message Text: "Category Name (Total: $X):"
+    // 2. Message Text: "Category Name (Section Total: $X):\n"
     messageText += `*${category}* (Section Total: $${sectionTotal}):\n`;
 
     tours.forEach((tour) => {
-      const tourTotal = tour.price * guestCount;
+      const itemPrice = tour.price * guestCount;
       // HTML
       const tourKey = Object.keys(TOURS).find((k) => TOURS[k] === tour);
       html += `
         <div class="selected-tour-item-row">
             <span class="tour-row-title">${tour.title}</span>
             <div class="tour-row-right">
-                <span class="tour-row-price">$${tourTotal}</span>
+                <span class="tour-row-price">$${itemPrice}</span>
                 <span class="tour-remove-btn" onclick="removeTourById('${tourKey}')" title="Remove">
                     <i class="fas fa-times"></i>
                 </span>
             </div>
         </div>`;
 
-      // Message Text: "- Tour Title (Price: $Price)"
-      messageText += `  - ${tour.title} (Price: $${tourTotal})\n`;
+      // Message Text: Item Name: $Price
+      messageText += `  - ${tour.title}: $${itemPrice}\n`;
     });
 
     html += `</div>`;
     messageText += `\n`; // Spacing between sections
-
-    // Update the Select All button state for this category
-    // updateSectionSelectAllButton(category); // Handled globally at start of function now
   }
 
   // Update List Display
@@ -772,14 +805,6 @@ window.onclick = function (event) {
 
 // --- Reservation & WhatsApp Logic ---
 
-// --- 4. Network & Form Handler ---
-
-/**
- * Handles the reservation form submission.
- * Validates inputs, calculates totals, and dispatches data to the backend.
- *
- * @param {Event} event - The form submission event
- */
 async function handleReservation(event) {
   event.preventDefault();
 
@@ -846,10 +871,11 @@ async function handleReservation(event) {
     if (result.success) {
       showToast("Success!", "Reservation sent successfully !", "success");
       event.target.reset();
+
       // Reset selected tours
-      if (typeof clearAllTours === "function") {
-        clearAllTours();
-      }
+      selectedTours = [];
+      updateSelectedToursDisplay();
+      updateAllButtons();
     } else {
       // Enhanced Error Reporting for User/Admin
       console.error("Backend Error Details:", result.error);
@@ -915,35 +941,16 @@ document.addEventListener("DOMContentLoaded", () => {
     dateInput.setAttribute("min", today);
   }
 
-  // Phone input validation (Numbers only)
+  // Restrict Phone Input to Numbers Only
   const phoneInput = document.getElementById("phone");
   if (phoneInput) {
     phoneInput.addEventListener("input", function (e) {
-      // Allow only numbers. Remove everything else.
       this.value = this.value.replace(/[^0-9]/g, "");
     });
   }
 
-  // Initialize Flatpickr for Time Input with Premium Config
-  const timeInput = document.getElementById("time");
-  if (timeInput) {
-    flatpickr(timeInput, {
-      enableTime: true,
-      noCalendar: true,
-      dateFormat: "H:i",
-      time_24hr: true,
-      disableMobile: "true",
-      minuteIncrement: 30, // Cleaner 30-min slots
-      defaultHour: 10,
-      onOpen: function (selectedDates, dateStr, instance) {
-        // Add custom class for styling hooks if needed
-        instance.calendarContainer.classList.add("premium-time-picker");
-      },
-    });
-  }
-
   // Create all decorative elements
-  // createDiagonalGrid(); // Removed
+  createDiagonalGrid();
   createStaticDecoration();
   createBottomRightDecoration();
 

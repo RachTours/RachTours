@@ -1,60 +1,54 @@
-# RachTours - Premium Reservation System
+# Rach Tours Website
 
-This is the production-ready source code for the RachTours website, featuring a secure NodeJS backend and a polished frontend.
+This is the source code for the Rach Tours website, a travel agency platform for booking local tours, day trips, and unique attractions in Agadir and Taghazout.
 
-## 🚀 Getting Started
+## Features
 
-### 1. Installation
+- **Interactive Tour Selection**: Users can select multiple tours, filter by category, and see a running total of the price.
+- **WhatsApp Integration**: Bookings are sent directly to a WhatsApp business number using the Meta WhatsApp Cloud API.
+- **Responsive Design**: Fully responsive UI for mobile and desktop.
+- **Dynamic Content**: Tour details are populated dynamically via JavaScript.
 
-Navigate to this folder and install the dependencies:
+## Setup & Installation
 
-```bash
-npm install
-```
+1.  **Install Dependencies**:
 
-### 2. Configuration
+    ```bash
+    npm install
+    ```
 
-Create a `.env` file in the root directory (or use the one provided) and ensure it has your WhatsApp API credentials:
+2.  **Environment Variables**:
+    Create a `.env` file in the root directory with the following keys:
 
-```env
-# Server Config
-PORT=3000
-NODE_ENV=production
+    ```env
+    PORT=3000
+    ACCESS_TOKEN=your_meta_access_token
+    PHONE_NUMBER_ID=your_phone_number_id
+    RECIPIENT_PHONE=destination_phone_number
+    ```
 
-# WhatsApp API Credentials
-ACCESS_TOKEN=your_access_token_here
-PHONE_NUMBER_ID=your_phone_id_here
-RECIPIENT_PHONE=your_personal_phone_here
-```
+3.  **Run the Server**:
 
-### 3. Running the Server
+    ```bash
+    npm start
+    ```
 
-To start the application:
+    or for development:
 
-```bash
-npm start
-```
+    ```bash
+    npm run dev
+    ```
 
-Open your browser at `http://localhost:3000`.
+4.  **Visit**:
+    Open `http://localhost:3000` in your browser.
 
-## 📦 Deployment to GitHub
+## Technologies
 
-This folder is already initialized as a Git repository. To upload it to GitHub:
+- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
+- **Backend**: Node.js, Express.js
+- **Security**: Helmet, XSS-Clean, HPP, Rate Limiting
+- **API**: Meta WhatsApp Cloud API
 
-1. Create a new empty repository on GitHub.
-2. Run the following commands in your terminal (inside this folder):
+## License
 
-```bash
-git add .
-git commit -m "Initial commit of optimized RachTours codebase"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-git push -u origin main
-```
-
-## 🔒 Security Features
-
-- **Strict Headers**: Helmet is configured with Content Security Policy (CSP).
-- **Sanitization**: All inputs are validated and sanitized to prevent XSS.
-- **HTTPS Enforcement**: Automatic redirection in production environments.
-- **Clean Code**: Unused scripts and styles have been stripped for performance.
+ISC
