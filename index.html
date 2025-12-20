@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rach Tours</title>
+    <link rel="stylesheet" href="tooplate-bistro-elegance.css?v=2.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <a href="#home" class="logo">
+          <img src="img/logo.png" alt="logo" height="65" />
+          <span>Rach Tours</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#local-tours">Local Tours</a></li>
+          <li><a href="#day-trips">Day Trips</a></li>
+          <li><a href="#unique-attractions">Unique Attractions</a></li>
+          <li><a href="#reservation">Book Now</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <!-- div class="diagonal-grid"></div -->
+
+      <div class="static-decoration"></div>
+      <div class="bottom-right-decoration"></div>
+      <div class="hero-content">
+        <h1>Welcome to <span class="Welcome"> Rach Tours</span></h1>
+
+        <p>
+          <span class="text-option"
+            >Your adventure starts here-explore, experience, and enjoy
+          </span>
+          <span class="text-option"
+            >24/7 support so your trip is worry-free</span
+          >
+          <span class="text-option"
+            >Create memories with family-friendly tours designed for all
+            ages</span
+          >
+          <span class="text-option"
+            >Step into history with guided tours through ancient cities
+          </span>
+        </p>
+        <a href="#reservation" class="cta-btn">Book Now !</a>
+
+        <div class="social-pill">
+          <a
+            href="https://www.facebook.com/profile.php?id=100077138210296&mibextid=ZbWKwL"
+            target="_blank"
+            class="social-icon facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/timlaline_heritagetours.ma?igsh=MWNyczNsczZueW9wbQ=="
+            target="_blank"
+            class="social-icon instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@timlalineheritagetour?_r=1&_t=ZS-923UTOy8mlb"
+            target="_blank"
+            class="social-icon tiktok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a
+            href="https://wa.me/message/7DXQUDJ4Q3ZIJ1"
+            target="_blank"
+            class="social-icon whatsapp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local Tours & Experiences -->
+    <section id="local-tours">
+      <h2>
+        Local Tours & Experiences
+        <button class="select-all-btn" onclick="toggleAllInSection('Local Tours & Experiences', this)">
+          Select All
+        </button>
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img
+            src="img/souk.png"
+            alt="Agadir Souk El Had"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Agadir Souk El Had Half Day Tour</h3>
+            <p>
+              Discover the vibrant Souk El Had with hotel pickup and free time
+              to explore.
+            </p>
+            <div class="price">$15</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'souk-tour')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('souk-tour')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/small-desert.png"
+            alt="Small Desert Trip"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Small Desert Trip from Agadir & Taghazout</h3>
+            <p>
+              Embark on a day trip to breathtaking desert landscapes and Berber
+              daily life.
+            </p>
+            <div class="price">$40</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'small-desert')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('small-desert')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/horse-ride.png"
+            alt="Horse Riding"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Horse Riding from Agadir & Taghazout</h3>
+            <p>
+              Ride along golden beaches, eucalyptus forests, and the scenic
+              Souss River.
+            </p>
+            <div class="price">$20</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'horse-riding')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('horse-riding')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/airport.png"
+            alt="Airport Transfer"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Airport Transfer to Agadir & Taghazout</h3>
+            <p>Reliable, stress-free transfers directly to your hotel.</p>
+            <div class="price">$35</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'airport-transfer')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('airport-transfer')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/dunes.png" alt="Sahara Dunes" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Sahara Dunes Trip</h3>
+            <p>
+              Explore the iconic sand dunes and enjoy a unique desert adventure.
+            </p>
+            <div class="price">$35</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'sahara-dunes')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('sahara-dunes')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/cooking.png"
+            alt="Cooking Class"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Cooking Class in Agadir</h3>
+            <p>
+              Hands-on lessons with expert chefs to discover Moroccan flavors.
+            </p>
+            <div class="price">$45</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'cooking-class')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('cooking-class')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/souk.png" alt="Old Medina" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Visit Old Medina of Agadir (Coco Polizzi)</h3>
+            <p>Explore artisan crafts and traditional Moroccan culture.</p>
+            <div class="price">$20</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'old-medina')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('old-medina')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/dunes.png" alt="Buggy Tour" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Buggy Tour in Agadir</h3>
+            <p>
+              Thrilling guided buggy rides through coastal tracks and desert
+              terrain.
+            </p>
+            <div class="price">$65</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'buggy-tour')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('buggy-tour')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/pic3.jpg"
+            alt="Moroccan Hammam"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Moroccan Hammam & Massage (2h)</h3>
+            <p>Experience ancient rituals of Moroccan beauty and relaxation.</p>
+            <div class="price">$45</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'hammam-massage')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('hammam-massage')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/dunes.png" alt="Quad Bike" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Quad Bike Tour in the Sand</h3>
+            <p>Adventure through dunes and Berber villages on quad bikes.</p>
+            <div class="price">$55</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'quad-bike')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('quad-bike')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day Trips & Excursions -->
+    <section id="day-trips">
+      <h2>
+        Day Trips & Excursions
+        <button class="select-all-btn" onclick="toggleAllInSection('Day Trips & Excursions', this)">
+          Select All
+        </button>
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="img/souk.png" alt="Taroudant" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Taroudant Trip from Agadir & Taghazout</h3>
+            <p>
+              Discover Morocco’s historic walled city and its vibrant souks.
+            </p>
+            <div class="price">$50</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'taroudant-trip')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('taroudant-trip')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/pic1.jpg"
+            alt="Souss National Park"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Souss National Park Trip</h3>
+            <p>
+              A nature getaway with diverse wildlife and stunning landscapes.
+            </p>
+            <div class="price">$45</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'souss-park')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('souss-park')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/pic2.jpg" alt="Cable Car" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Cable Car Tour from Agadir & Taghazout</h3>
+            <p>Panoramic views of Agadir from above.</p>
+            <div class="price">$25</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'cable-car')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('cable-car')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/pic1.jpg"
+            alt="Paradise Valley"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Paradise Valley Trip</h3>
+            <p>Swim in natural springs surrounded by lush scenery.</p>
+            <div class="price">$30</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'paradise-valley')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('paradise-valley')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/dunes.png" alt="Sandboarding" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Sandboarding from Agadir & Taghazout</h3>
+            <p>Exhilarating rides down desert dunes.</p>
+            <div class="price">$45</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'sandboarding')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('sandboarding')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/horse-ride.png"
+            alt="Camel Ride"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Camel Ride Tour in Agadir & Taghazout</h3>
+            <p>Unforgettable camel rides along scenic routes.</p>
+            <div class="price">$25</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'camel-ride')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('camel-ride')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/souk.png" alt="Marrakech" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Marrakech Day Trip</h3>
+            <p>Explore monuments and vibrant streets of Marrakech.</p>
+            <div class="price">$55</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'marrakech-trip')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('marrakech-trip')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/souk.png" alt="City Tour" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>City Tour from Agadir & Taghazout</h3>
+            <p>Discover Agadir’s highlights and bustling souks.</p>
+            <div class="price">$25</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'city-tour')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('city-tour')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/pic7.jpg" alt="Essaouira" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Essaouira Day Trip</h3>
+            <p>
+              Explore the UNESCO-listed medina and coastal charm of Essaouira.
+            </p>
+            <div class="price">$50</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'essaouira-trip')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('essaouira-trip')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/pic5.jpg" alt="Boat Trip" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Boat Trip from Agadir & Taghazout</h3>
+            <p>Enjoy the thrill of sailing in Agadir’s bay.</p>
+            <div class="price">$40</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'boat-trip')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('boat-trip')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Unique Attractions -->
+    <section id="unique-attractions">
+      <h2>
+        Unique Attractions
+        <button class="select-all-btn" onclick="toggleAllInSection('Unique Attractions', this)">
+          Select All
+        </button>
+      </h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="img/pic1.jpg" alt="Crocoparc" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Crocoparc Tour from Agadir</h3>
+            <p>See over 300 Nile crocodiles in a tropical setting.</p>
+            <div class="price">$35</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'crocoparc')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('crocoparc')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/pic5.jpg" alt="Dolphin Show" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Dolphin Show in Agadir</h3>
+            <p>
+              A 60-minute show with dolphins performing tricks and interactions.
+            </p>
+            <div class="price">$30</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'dolphin-show')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('dolphin-show')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img
+            src="img/pic2.jpg"
+            alt="Hot Air Balloon"
+            class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Hot Air Balloon Trip</h3>
+            <p>
+              Soar above Atlas Mountains, coastline, and desert for breathtaking
+              views.
+            </p>
+            <div class="price">$220</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'hot-air-balloon')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('hot-air-balloon')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img src="img/pic1.jpg" alt="Goats on Tree" class="menu-item-image" />
+          <div class="menu-item-content">
+            <h3>Goats on the Tree Tour</h3>
+            <p>Visit argan trees and interact with playful goats.</p>
+            <div class="price">$20</div>
+            <div class="menu-item-buttons">
+              <button
+                class="add-to-plan-btn"
+                onclick="toggleTour(this, 'goats-tree')"
+                title="Add to Plan">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                class="ingredients-btn"
+                onclick="showTourDetails('goats-tree')">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reservation">
+      <div class="reservation">
+        <div class="reservation-content">
+          <h2>Make a Reservation</h2>
+          <form class="reservation-form" onsubmit="handleReservation(event)">
+            <!-- Contact Section -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-user"></i> Contact Details
+              </h3>
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+
+
+            <!-- Booking Section -->
+            <div class="form-section">
+              <h3 class="section-title">
+                <i class="fas fa-calendar-alt"></i> Booking Details
+              </h3>
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required />
+              </div>
+              <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" required />
+              </div>
+              <div class="form-group">
+                <label for="guests">Number of Guests</label>
+                <input type="number" id="guests" name="guests" min="1" value="1" required />
+              </div>
+            </div>
+
+            <div class="form-group full-width mt-2">
+              <h3 class="section-title">
+                <i class="fas fa-edit"></i> Additional Details
+              </h3>
+              <label for="special">Special Requests</label>
+              <textarea
+                id="special"
+                name="special"
+                rows="5"
+                placeholder="Any dietary restrictions or special occasions?"></textarea>
+            </div>
+
+            <div
+              class="form-group full-width"
+              id="selected-tours-container"
+              style="display: none">
+              <div class="selected-tours-header">
+                <label class="selected-tours-label">Selected Tours:</label>
+                <button
+                  type="button"
+                  id="clear-all-btn"
+                  onclick="clearAllTours()"
+                  class="clear-btn-styled">
+                  Clear All
+                </button>
+              </div>
+              <div
+                id="selected-tours-display"
+                class="selected-tours-list-styled"></div>
+              <input
+                type="hidden"
+                id="selected-tours-input"
+                name="selected_tours" />
+            </div>
+
+            <!-- Form Footer with Total and Submit -->
+            <div class="form-footer">
+              <div
+                id="reservation-total-container"
+                class="reservation-total-container"
+                style="display: none">
+                <span>Total Price:</span>
+                <span id="reservation-total-value" class="total-price-value"
+                  >$0</span
+                >
+              </div>
+              <button type="submit" class="submit-btn">
+                Submit Reservation
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scroll Up Button -->
+    <button id="scroll-up-btn" title="Go to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="footer-content">
+
+        <div class="footer-section center-text">
+          <h3>Contact Us</h3>
+          <div class="social-pill mt-1">
+            <a
+              href="https://www.facebook.com/profile.php?id=100077138210296&mibextid=ZbWKwL"
+              target="_blank"
+              class="social-icon facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/timlaline_heritagetours.ma?igsh=MWNyczNsczZueW9wbQ=="
+              target="_blank"
+              class="social-icon instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.tiktok.com/@timlalineheritagetour?_r=1&_t=ZS-923UTOy8mlb"
+              target="_blank"
+              class="social-icon tiktok">
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a
+              href="https://wa.me/message/7DXQUDJ4Q3ZIJ1"
+              target="_blank"
+              class="social-icon whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; 2025 Rach Tours. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Ingredients Modal -->
+    <div id="ingredientsModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3 id="modalTitle">Tour Details</h3>
+        <ul id="ingredientsList" class="ingredient-list"></ul>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+      <div class="modal-content confirmation-content">
+        <span class="close" onclick="closeConfirmationModal()">&times;</span>
+        <h3>Are you sure?</h3>
+        <p>Are you sure you want to remove all selected tours?</p>
+        <div class="confirmation-buttons">
+          <button class="confirm-btn yes-btn" onclick="confirmClearAll()">
+            Yes
+          </button>
+          <button class="confirm-btn no-btn" onclick="closeConfirmationModal()">
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="tooplate-bistro-scripts.js?v=2.0"></script>
+    <!-- Fixed Special Requests Panel -->
+    <!-- Custom Notification Toast -->
+    <!-- Custom Notification Toast -->
+    <div id="toast-container" class="toast-container"></div>
+  </body>
+</html>
