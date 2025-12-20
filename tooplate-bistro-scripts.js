@@ -597,21 +597,24 @@ function updateSectionSelectAllButton(category) {
 
 function updateAllButtons() {
   const buttons = document.querySelectorAll(".add-to-plan-btn");
-  buttons.forEach((btn) => {
-    // We need to look up the tourId from the onclick attribute string
-    // Format: toggleTour(this, 'cms-id')
+  buttons.forEach((btn, index) => {
     const onclick = btn.getAttribute("onclick");
     if (onclick) {
       const match = onclick.match(/'([^']+)'/);
       if (match && match[1]) {
         const tourId = match[1];
-        if (selectedTours.includes(tourId)) {
-          btn.innerHTML = '<i class="fas fa-check"></i>';
-          btn.classList.add("selected");
-        } else {
-          btn.innerHTML = '<i class="fas fa-plus"></i>';
-          btn.classList.remove("selected");
-        }
+        const isSelected = selectedTours.includes(tourId);
+
+        // Staggered animation effect for bulk updates
+        setTimeout(() => {
+          if (isSelected) {
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.classList.add("selected");
+          } else {
+            btn.innerHTML = '<i class="fas fa-plus"></i>';
+            btn.classList.remove("selected");
+          }
+        }, index * 20); // 20ms stagger
       }
     }
   });
