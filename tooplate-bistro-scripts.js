@@ -573,9 +573,8 @@ function toggleAllInSection(category, btn) {
 
 function updateSectionSelectAllButton(category) {
   // Helper to update the "Select All" button state when individual items change
-  const btn = document.querySelector(
-    `button[onclick="toggleAllInSection('${category}', this)"]`
-  );
+  // Use data attribute for robust selection
+  const btn = document.querySelector(`button[data-category="${category}"]`);
   if (!btn) return;
 
   const tourIds = Object.keys(TOURS).filter(
