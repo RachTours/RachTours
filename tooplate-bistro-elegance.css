@@ -1348,11 +1348,189 @@ h2::after {
   background: #27ae60;
 }
 
-/* Ensure View Details button aligns properly */
+/* Price Row Layout - Responsive */
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  margin-bottom: 0.5rem;
+  padding-right: 5px;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  gap: 10px; /* Space between price and toggle when wrapped */
+}
 
-/* Ensure View Details button aligns properly */
+/* Ensure price removes its own margin since we handle it in row */
+.price-row .price {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+/* Guest Counter UI */
+.guest-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Gap between buttons and input */
+  margin-top: 5px;
+}
+
+.guest-input-wrapper input {
+  width: 80px !important; /* Reduced width */
+  height: 38px;
+  text-align: center;
+  font-size: 1.1rem;
+  border: 1px solid #ccc; /* Visible gray border */
+  border-radius: 20px !important; /* Fully rounded (pill shape) */
+  background: white;
+  font-weight: 600;
+  color: #333;
+  padding: 0 10px;
+  margin: 0;
+  font-family: inherit;
+  -moz-appearance: textfield;
+}
+
+.guest-input-wrapper input::-webkit-outer-spin-button,
+.guest-input-wrapper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Base Button Style */
+.guest-btn {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  border: 1px solid !important; /* Thinner border to match delicate look */
+  background: transparent !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.1rem !important;
+  transition: all 0.2s ease;
+  padding: 0 !important;
+}
+
+/* Minus Button: Red Outline & Text */
+.guest-btn.minus {
+  border-color: #e74c3c !important;
+  color: #e74c3c !important;
+}
+
+.guest-btn.minus:hover {
+  background: #e74c3c !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+/* Plus Button: Green Outline & Text */
+.guest-btn.plus {
+  border-color: #2ecc71 !important;
+  color: #2ecc71 !important;
+}
+
+.guest-btn.plus:hover {
+  background: #2ecc71 !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+/* Transport Label - Premium Circular UI */
+.transport-label {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Reduced gap slightly */
+  font-family: inherit;
+  font-size: 0.85rem; /* Slightly smaller text */
+  color: #666;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  margin-left: auto;
+  transition: color 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+/* Hide default checkbox fully */
+.transport-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px; /* Reduced from 28px */
+  height: 24px; /* Reduced from 28px */
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  background: white;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  margin: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover: Soft Green Border */
+.transport-label:hover input[type="checkbox"] {
+  border-color: #2ecc71;
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px rgba(46, 204, 113, 0.15);
+}
+
+/* Selected State: Premium Gradient Green */
+.transport-label input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+  transform: scale(1.1);
+}
+
+/* White Circle Icon (instead of checkmark) */
+.transport-label input[type="checkbox"]::after {
+  content: ""; /* No text content, just shape */
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%; /* Make it a circle */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Reveal Circle on Checked */
+.transport-label input[type="checkbox"]:checked::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Active Text Color */
+.transport-label:has(input:checked) {
+  color: #27ae60;
+  text-shadow: 0 0 1px rgba(39, 174, 96, 0.2);
+}
+
+/* Ensure View Details button aligns properly and matches width */
 .ingredients-btn {
-  margin-top: 0 !important; /* Override previous margin-top */
+  margin-top: 0 !important;
+  flex: 1; /* Allow it to grow */
+  /* If specific alignment with transport label is needed, we might use min-width */
+  min-width: 140px; /* Approximate width to match label area */
+  width: 100%; /* Take full available width in flex container if needed */
+}
+
+/* Adjust button container to be flexible */
+.menu-item-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.add-to-plan-btn {
+  /* Keep plus button size fixed or relative */
+  flex: 0 0 auto;
+  width: 45px; /* Fixed width for the square button */
 }
 
 /* Selected Tours Display in Form */

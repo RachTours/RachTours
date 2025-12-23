@@ -259,13 +259,12 @@ function createBottomRightDecoration() {
 // Centralized Tour Data
 const TOURS = {
   "souk-tour": {
-    title: "Agadir Souk El Had Half Day Tour",
+    title: "Agadir Souk El Had Tour",
     category: "Local Tours & Experiences",
     price: 15,
     details: [
-      "Duration: 3-4 Hours",
-      "Pick up: 10AM or 2PM",
-      "Hotel pickup and drop-off included",
+      "Duration: 1-4 Hours",
+      "Pick up: Any time",
       "Free time to explore the market independently",
       "Discover spices, crafts, and local culture",
     ],
@@ -273,29 +272,28 @@ const TOURS = {
   "small-desert": {
     title: "Small Desert Trip from Agadir & Taghazout",
     category: "Local Tours & Experiences",
-    price: 40,
+    price: 30,
     details: [
       "Duration: 5-6 Hours",
-      "Pick up: 2 PM",
+      "Pick up: Any time",
       "Explore sand dunes and Berber villages",
-      "Technical stop at Youssef Bin Tachfine Dam",
-      "Traditional Moroccan tea break included",
+      "Traditional Moroccan tea break (optional)",
     ],
   },
   "horse-riding": {
-    title: "Horse Riding from Agadir & Taghazout",
+    title: "Horse Riding",
     category: "Local Tours & Experiences",
     price: 20,
     details: [
       "Duration: 2 Hours",
-      "Ride along the beach and Souss river",
+      "Ride along the beach and tamri village river",
       "Suitable for all skill levels",
       "Equipment and guide included",
       "Beautiful sunset option available",
     ],
   },
   "airport-transfer": {
-    title: "Airport Transfer to Agadir & Taghazout",
+    title: "Airport Transfer",
     category: "Local Tours & Experiences",
     price: 35,
     details: [
@@ -309,29 +307,26 @@ const TOURS = {
   "sahara-dunes": {
     title: "Sahara Dunes Trip",
     category: "Local Tours & Experiences",
-    price: 35,
+    price: 25,
     details: [
       "Full day adventure",
-      "Lunch with locals included",
-      "Visit Tiznit (Silver City)",
       "Explore massive sand dunes",
       "Scenic drive through Anti-Atlas mountains",
     ],
   },
   "cooking-class": {
-    title: "Cooking Class in Agadir",
+    title: "Cooking Class",
     category: "Local Tours & Experiences",
-    price: 45,
+    price: 40,
     details: [
       "Duration: 4 Hours",
       "Market visit for ingredients",
       "Learn to cook Tagine or Couscous",
       "Enjoy your meal afterwards",
-      "Transport included",
     ],
   },
   "old-medina": {
-    title: "Visit Old Medina of Agadir (Coco Polizzi)",
+    title: "Visit Old Medina of Agadir",
     category: "Local Tours & Experiences",
     price: 20,
     details: [
@@ -343,25 +338,22 @@ const TOURS = {
     ],
   },
   "buggy-tour": {
-    title: "Buggy Tour in Agadir",
+    title: "Buggy Tour",
     category: "Local Tours & Experiences",
     price: 65,
     details: [
-      "Duration: 2 Hours (driving)",
+      "Duration: 1 Hours (driving)",
       "Safety briefing and gear included",
-      "Off-road tracks through argan and eucalyptus forests",
-      "Tea break in a Berber village",
-      "Valid driver license required for driver",
+      "Tea break (optinal)",
     ],
   },
   "hammam-massage": {
     title: "Moroccan Hammam & Massage (2h)",
     category: "Local Tours & Experiences",
-    price: 45,
+    price: 40,
     details: [
       "1 Hour Traditional Hammam (Scrub)",
       "1 Hour Relaxing Massage with Argan Oil",
-      "Transport included",
       "Towels and slippers provided",
       "Ultimate relaxation experience",
     ],
@@ -369,17 +361,16 @@ const TOURS = {
   "quad-bike": {
     title: "Quad Bike Tour in the Sand",
     category: "Local Tours & Experiences",
-    price: 55,
+    price: 30,
     details: [
-      "Duration: 2 Hours",
+      "Duration: 1 Hours",
       "Ride through dunes and beach",
       "Safety equipment provided",
       "Briefing for beginners",
-      "Tea break included",
     ],
   },
   "taroudant-trip": {
-    title: "Taroudant Trip from Agadir & Taghazout",
+    title: "Taroudant Trip",
     category: "Day Trips & Excursions",
     price: 50,
     details: [
@@ -402,8 +393,8 @@ const TOURS = {
       "Morning tour recommended",
     ],
   },
-  "cable-car": {
-    title: "Cable Car Tour from Agadir & Taghazout",
+  Telepherique: {
+    title: "Telepherique in Agadir",
     category: "Day Trips & Excursions",
     price: 25,
     details: [
@@ -417,49 +408,35 @@ const TOURS = {
   "paradise-valley": {
     title: "Paradise Valley Trip",
     category: "Day Trips & Excursions",
-    price: 30,
+    price: 20,
     details: [
       "Half day trip",
       "Short hike through palm groves",
       "Swimming in natural rock pools",
-      "Visit argan oil cooperative",
       "Stunning photography spots",
     ],
   },
   sandboarding: {
-    title: "Sandboarding from Agadir & Taghazout",
+    title: "Sandboarding",
     category: "Day Trips & Excursions",
-    price: 45,
+    price: 25,
     details: [
       "Combine with half-day desert trip",
       "Boards provided",
-      "Slide down the steep dunes of Taboga",
-      "Tea break with panoramic view",
+      "Slide down the steep dunes",
+      "panoramic view",
       "Fun for all ages",
     ],
   },
   "camel-ride": {
-    title: "Camel Ride Tour in Agadir & Taghazout",
+    title: "Camel Ride Tour",
     category: "Day Trips & Excursions",
     price: 25,
     details: [
-      "2 Hours riding experience",
-      "Costumes provided for photos",
-      "Ride along the Souss river mouth",
+      "1 Hours riding experience",
+
       "Flamingo spotting (seasonally)",
       "Pick up and drop off included",
-    ],
-  },
-  "marrakech-trip": {
-    title: "Marrakech Day Trip",
-    category: "Day Trips & Excursions",
-    price: 55,
-    details: [
-      "Early morning departure (approx 7 AM)",
-      "3 hours highway drive",
-      "Guided tour of Medina, Koutoubia, Jemaa el-Fna",
-      "Free time for shopping",
-      "Return by evening",
     ],
   },
   "city-tour": {
@@ -469,41 +446,21 @@ const TOURS = {
     details: [
       "Duration: 3 Hours",
       "Visit Kasbah Oufella (Historic Fortress)",
-      "See the biggest Mosque in Agadir",
       "Drive through Marina and City Center",
-      "Visit Argan Oil factory",
-    ],
-  },
-  "essaouira-trip": {
-    title: "Essaouira Day Trip",
-    category: "Day Trips & Excursions",
-    price: 50,
-    details: [
-      "Full day excursion",
-      'Stop for "Goats on Trees" photo',
-      "Explore the Portuguese fortress and port",
-      "Walk through the blue and white Medina",
-      "Fresh seafood lunch opportunities",
     ],
   },
   "boat-trip": {
-    title: "Boat Trip from Agadir & Taghazout",
+    title: "Boat Trip",
     category: "Day Trips & Excursions",
-    price: 40,
-    details: [
-      "Half day cruising",
-      "Fishing equipment available",
-      "Swimming break",
-      "Lunch cooked on board included",
-      "Relaxing atmosphere",
-    ],
+    price: 45,
+    details: ["30 min - 1 h", "Swimming break", "Relaxing atmosphere"],
   },
   crocoparc: {
-    title: "Crocoparc Tour from Agadir",
+    title: "Crocoparc Tour",
     category: "Unique Attractions",
-    price: 35,
+    price: 25,
     details: [
-      "Entrance ticket and transfer included",
+      "Entrance ticket included",
       "Walk through thematic botanical gardens",
       "Watch crocodile feeding times",
       "Educational and fun",
@@ -511,27 +468,13 @@ const TOURS = {
     ],
   },
   "dolphin-show": {
-    title: "Dolphin Show in Agadir",
+    title: "Dolphin",
     category: "Unique Attractions",
     price: 30,
     details: [
       "Show times vary (usually afternoon)",
       "Watch dolphins and sea lions perform",
       "Photo opportunities available",
-      "Transfer from hotel included",
-      "Duration approx 1 hour + transport",
-    ],
-  },
-  "hot-air-balloon": {
-    title: "Hot Air Balloon Trip",
-    category: "Unique Attractions",
-    price: 220,
-    details: [
-      "Sunrise flight",
-      "Approximately 1 hour in air",
-      "Traditional Berber breakfast included",
-      "Flight certificate",
-      "Unique perspective of the varied landscape",
     ],
   },
   "goats-tree": {
@@ -549,6 +492,66 @@ const TOURS = {
 };
 
 let selectedTours = []; // Array of tour IDs
+let transportSelections = {}; // Object to track transport status: { 'tour-id': true/false }
+
+const TRANSPORT_FEE = 40; // Centralized transport fee
+
+// --- Functionality to Toggle Transport Selection ---
+function toggleTransport(checkbox, tourId) {
+  // Update state based on checkbox checked status
+  const isChecked = checkbox.checked;
+  transportSelections[tourId] = isChecked;
+
+  // Logic: If user selects transport, AUTOMATICALLY select the tour if not already selected.
+  // "if the user clicked on Request Transport (+$40) button first and didn't click on add buton make them both selected"
+  if (isChecked && !selectedTours.includes(tourId)) {
+    // Find the add button for this tour to trigger its visual update logic
+    // We need to find the specific button. Since we don't have IDs, we search by onclick attribute.
+    const addBtn = document.querySelector(
+      `.add-to-plan-btn[onclick*="'${tourId}'"]`
+    );
+    if (addBtn) {
+      toggleTour(addBtn, tourId);
+    } else {
+      // Fallback if button not found in DOM (e.g. dynamic loading issues?)
+      selectedTours.push(tourId);
+    }
+  }
+
+  // Note: We do NOT deselect the tour if they uncheck transport.
+  // "and if clicked on add buton only don't select also the Request Transport"
+  // -> This is already default behavior of toggleTour (it doesn't touch transportSelections)
+
+  // Update Display
+  updateSelectedToursDisplay();
+
+  // Also update the price displayed on the card itself immediately
+  updateCardPrice(tourId);
+}
+
+function updateCardPrice(tourId) {
+  const tour = TOURS[tourId];
+  if (!tour) return;
+
+  // Find the price element for this tour card
+  // We search by the checkbox input relative to the card body
+  const checkboxes = document.querySelectorAll(
+    `.transport-label input[onchange*="'${tourId}'"]`
+  );
+
+  checkboxes.forEach((cb) => {
+    const cardBody = cb.closest(".menu-item-content");
+    if (cardBody) {
+      const priceEl = cardBody.querySelector(".price");
+      if (priceEl) {
+        const basePrice = tour.price;
+        const hasTransport = transportSelections[tourId];
+        const finalSinglePrice = basePrice + (hasTransport ? TRANSPORT_FEE : 0);
+        priceEl.innerText = `$${finalSinglePrice}`;
+      }
+    }
+  });
+}
 
 function toggleTour(btn, tourId) {
   const tour = TOURS[tourId];
@@ -659,19 +662,89 @@ function updateAllButtons() {
   updateSectionHelperButtons();
 }
 
+function calculateTourStats(selectedIds, guestCount) {
+  const groups = {};
+  let totalReservationPrice = 0;
+  let messageText = "";
+
+  selectedIds.forEach((tourId) => {
+    const tour = TOURS[tourId];
+    if (!tour) return;
+
+    if (!groups[tour.category]) {
+      groups[tour.category] = [];
+    }
+
+    const hasTransport = transportSelections[tourId] || false;
+    const singlePersonPrice = tour.price + (hasTransport ? TRANSPORT_FEE : 0);
+    const itemTotal = singlePersonPrice * guestCount;
+
+    groups[tour.category].push({
+      ...tour,
+      hasTransport,
+      singlePersonPrice,
+      itemTotal,
+      tourId,
+    });
+
+    totalReservationPrice += itemTotal;
+  });
+
+  return { groups, totalReservationPrice };
+}
+
+function generateTourListHTML(groups) {
+  let html = "";
+  let messageTextParts = [];
+
+  for (const [category, items] of Object.entries(groups)) {
+    const sectionTotal = items.reduce((sum, item) => sum + item.itemTotal, 0);
+
+    // HTML
+    html += `<div class="tour-list-category"><h5>${category}</h5>`;
+
+    // Message Text Part
+    let sectionMsg = `*${category}* (Section Total: $${sectionTotal}):\n`;
+
+    items.forEach((item) => {
+      let htmlTitleSuffix = "";
+      let messageSuffix = "";
+
+      if (item.hasTransport) {
+        htmlTitleSuffix = `<span style="font-size:0.8em; color:#27ae60; margin-left:5px; font-weight:bold;">(+ Transport)</span>`;
+        messageSuffix = " [INCLUDES TRANSPORT]";
+      }
+
+      html += `
+        <div class="selected-tour-item-row">
+            <span class="tour-row-title">${item.title} ${htmlTitleSuffix}</span>
+            <div class="tour-row-right">
+                <span class="tour-row-price">$${item.itemTotal}</span>
+                <span class="tour-remove-btn" onclick="removeTourById('${item.tourId}')" title="Remove">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+        </div>`;
+
+      sectionMsg += `  - ${item.title}${messageSuffix}: $${item.itemTotal}\n`;
+    });
+
+    html += `</div>`;
+    messageTextParts.push(sectionMsg);
+  }
+
+  return { html, messageText: messageTextParts.join("\n") };
+}
+
 function updateSelectedToursDisplay() {
-  /*
-   * Update the hidden input value AND the visual display list
-   */
   const input = document.getElementById("selected-tours-input");
   const displayContainer = document.getElementById("selected-tours-display");
   const containerWrapper = document.getElementById("selected-tours-container");
-
-  // New Total Elements targets
   const totalContainer = document.getElementById("reservation-total-container");
   const totalValueSpan = document.getElementById("reservation-total-value");
+  const guestsSelect = document.getElementById("guests");
 
-  // Show/Hide container based on selection
+  // Show/Hide container
   if (selectedTours.length === 0) {
     containerWrapper.style.display = "none";
     input.value = "";
@@ -683,76 +756,21 @@ function updateSelectedToursDisplay() {
   containerWrapper.style.display = "block";
   if (totalContainer) totalContainer.style.display = "flex";
 
-  // Group tours by category
-  const groups = {};
-  let totalPrice = 0;
-
-  // Get guest count (default to 1 if not selected yet)
-  const guestsSelect = document.getElementById("guests");
+  // Calculations
   const guestCount = guestsSelect.value ? parseInt(guestsSelect.value) : 1;
+  const { groups, totalReservationPrice } = calculateTourStats(
+    selectedTours,
+    guestCount
+  );
 
-  selectedTours.forEach((tourId) => {
-    const tour = TOURS[tourId];
-    if (!tour) return;
+  // HTML Generation
+  const { html, messageText } = generateTourListHTML(groups);
 
-    if (!groups[tour.category]) {
-      groups[tour.category] = [];
-    }
-    groups[tour.category].push(tour);
-    totalPrice += tour.price * guestCount;
-  });
-
-  // Generate HTML (List Only)
-  let html = "";
-  // Generate Text for Message (Structured)
-  let messageText = "";
-
-  for (const [category, tours] of Object.entries(groups)) {
-    // Calculate Section Total
-    const sectionTotal = tours.reduce(
-      (sum, t) => sum + t.price * guestCount,
-      0
-    );
-
-    // 1. HTML Display
-    html += `<div class="tour-list-category">
-              <h5>${category}</h5>`;
-
-    // 2. Message Text: "Category Name (Section Total: $X):\n"
-    messageText += `*${category}* (Section Total: $${sectionTotal}):\n`;
-
-    tours.forEach((tour) => {
-      const itemPrice = tour.price * guestCount;
-      // HTML
-      const tourKey = Object.keys(TOURS).find((k) => TOURS[k] === tour);
-      html += `
-        <div class="selected-tour-item-row">
-            <span class="tour-row-title">${tour.title}</span>
-            <div class="tour-row-right">
-                <span class="tour-row-price">$${itemPrice}</span>
-                <span class="tour-remove-btn" onclick="removeTourById('${tourKey}')" title="Remove">
-                    <i class="fas fa-times"></i>
-                </span>
-            </div>
-        </div>`;
-
-      // Message Text: Item Name: $Price
-      messageText += `  - ${tour.title}: $${itemPrice}\n`;
-    });
-
-    html += `</div>`;
-    messageText += `\n`; // Spacing between sections
-  }
-
-  // Update List Display
+  // DOM Updates
   displayContainer.innerHTML = html;
-
-  // Update Separate Total Display
   if (totalValueSpan) {
-    totalValueSpan.innerText = `$${totalPrice}`;
+    totalValueSpan.innerText = `$${totalReservationPrice}`;
   }
-
-  // Update hidden input with the structured text
   input.value = messageText.trim();
 }
 
@@ -837,15 +855,26 @@ async function handleReservation(event) {
     return; // Stop execution
   }
 
+  // Sanitization Helper
+  const escapeHtml = (unsafe) => {
+    if (typeof unsafe !== "string") return unsafe;
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  };
+
   const formData = {
-    name,
+    name: escapeHtml(name),
     // email removed
-    phone,
-    date,
-    time,
-    guests,
-    special,
-    selectedTours: selectedToursInput,
+    phone: escapeHtml(phone),
+    date: escapeHtml(date),
+    time: escapeHtml(time),
+    guests: escapeHtml(guests),
+    special: escapeHtml(special),
+    selectedTours: selectedToursInput, // Generated internally, but safe to sanitize if needed. keeping raw structure for formatting usually safe unless compromised logic.
     totalPrice:
       document.getElementById("reservation-total-value")?.innerText || "$0",
   };
@@ -1047,6 +1076,27 @@ function confirmClearAll() {
 
   // Close Modal
   closeConfirmationModal();
+}
+
+// --- Guest Count Logic ---
+
+function updateGuestCount(change) {
+  const input = document.getElementById("guests");
+  let val = parseInt(input.value) || 1;
+  val += change;
+  if (val < 1) val = 1;
+
+  input.value = val;
+
+  // Trigger update of prices
+  updateSelectedToursDisplay();
+
+  // Visual Feedback (optional pop effect)
+  const btn = event.currentTarget; // The clicked button
+  if (btn) {
+    btn.style.transform = "scale(0.9)";
+    setTimeout(() => (btn.style.transform = ""), 150);
+  }
 }
 
 // --- Toast Notification Logic ---

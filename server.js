@@ -14,12 +14,22 @@ const PORT = process.env.PORT || 3000;
 // Security Middleware
 app.use(
   helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: false, // We handle CSP via meta tag for transparency with frontend code
+    hsts: {
+      maxAge: 31536000, // 1 year
+      includeSubDomains: true,
+      preload: true,
+    },
+    frameguard: {
+      action: "deny",
+    },
+    noSniff: true,
+    xssFilter: true, // Deprecated in modern browsers but good fallback
   })
 );
 app.use(xss());
 app.use(hpp());
-app.use(cors());
+app.use(cors()); // Configure origin in production if needed
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -61,12 +71,10 @@ app.post(
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: { message: "Validation Failed", details: errors.array() },
-        });
+      return res.status(400).json({
+        success: false,
+        error: { message: "Validation Failed", details: errors.array() },
+      });
     }
 
     try {

@@ -3,44 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: https:; upgrade-insecure-requests;" />
     <title>Rach Tours</title>
-    <link rel="stylesheet" href="tooplate-bistro-elegance.css" />
+    <link rel="stylesheet" href="tooplate-bistro-elegance.css?v=2" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
     <!-- Navigation -->
-    <nav>
-      <div class="nav-container">
-        <a href="#home" class="logo">
-          <img src="img/logo.png" alt="logo" height="65" />
-          <span>Rach Tours</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#local-tours">Local Tours</a></li>
-          <li><a href="#day-trips">Day Trips</a></li>
-          <li><a href="#unique-attractions">Unique Attractions</a></li>
-          <li><a href="#reservation">Book Now</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-        </ul>
-        <div class="menu-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
+    <header>
+      <nav>
+        <div class="nav-container">
+          <a href="#home" class="logo">
+            <img src="img/logo.png" alt="Rach Tours Logo" height="65" />
+            <span>Rach Tours</span>
+          </a>
+          <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#local-tours">Local Tours</a></li>
+            <li><a href="#day-trips">Day Trips</a></li>
+            <li><a href="#unique-attractions">Unique Attractions</a></li>
+            <li><a href="#reservation">Book Now</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <div class="diagonal-grid"></div>
+    <main>
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div class="diagonal-grid"></div>
 
-      <div class="static-decoration"></div>
-      <div class="bottom-right-decoration"></div>
-      <div class="hero-content">
-        <h1>Welcome to <span class="Welcome"> Rach Tours</span></h1>
+        <div class="static-decoration"></div>
+        <div class="bottom-right-decoration"></div>
+        <div class="hero-content">
+          <h1>Welcome to <span class="Welcome"> Rach Tours</span></h1>
 
         <p>
           <span class="text-option"
@@ -103,12 +109,18 @@
             alt="Agadir Souk El Had"
             class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Agadir Souk El Had Half Day Tour</h3>
+            <h3>Agadir Souk El Had Tour</h3>
             <p>
-              Discover the vibrant Souk El Had with hotel pickup and free time
+              Discover the vibrant Souk El Had with free time
               to explore.
             </p>
-            <div class="price">$15</div>
+            <div class="price-row">
+              <div class="price">$15</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'souk-tour')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -136,7 +148,13 @@
               Embark on a day trip to breathtaking desert landscapes and Berber
               daily life.
             </p>
-            <div class="price">$40</div>
+            <div class="price-row">
+              <div class="price">$30</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'small-desert')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -159,12 +177,18 @@
             alt="Horse Riding"
             class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Horse Riding from Agadir & Taghazout</h3>
+            <h3>Horse Riding</h3>
             <p>
               Ride along golden beaches, eucalyptus forests, and the scenic
               Souss River.
             </p>
-            <div class="price">$20</div>
+            <div class="price-row">
+              <div class="price">$20</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'horse-riding')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -187,9 +211,15 @@
             alt="Airport Transfer"
             class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Airport Transfer to Agadir & Taghazout</h3>
+            <h3>Airport Transfer</h3>
             <p>Reliable, stress-free transfers directly to your hotel.</p>
-            <div class="price">$35</div>
+            <div class="price-row">
+              <div class="price">$35</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'airport-transfer')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -213,7 +243,13 @@
             <p>
               Explore the iconic sand dunes and enjoy a unique desert adventure.
             </p>
-            <div class="price">$35</div>
+            <div class="price-row">
+              <div class="price">$25</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'sahara-dunes')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -240,7 +276,13 @@
             <p>
               Hands-on lessons with expert chefs to discover Moroccan flavors.
             </p>
-            <div class="price">$45</div>
+            <div class="price-row">
+              <div class="price">$40</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'cooking-class')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -260,9 +302,15 @@
         <div class="menu-item">
           <img src="img/souk.png" alt="Old Medina" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Visit Old Medina of Agadir (Coco Polizzi)</h3>
+            <h3>Visit Old Medina of Agadir</h3>
             <p>Explore artisan crafts and traditional Moroccan culture.</p>
-            <div class="price">$20</div>
+            <div class="price-row">
+              <div class="price">$20</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'old-medina')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -282,12 +330,18 @@
         <div class="menu-item">
           <img src="img/dunes.png" alt="Buggy Tour" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Buggy Tour in Agadir</h3>
+            <h3>Buggy Tour</h3>
             <p>
               Thrilling guided buggy rides through coastal tracks and desert
               terrain.
             </p>
-            <div class="price">$65</div>
+            <div class="price-row">
+              <div class="price">$65</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'buggy-tour')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -312,7 +366,13 @@
           <div class="menu-item-content">
             <h3>Moroccan Hammam & Massage (2h)</h3>
             <p>Experience ancient rituals of Moroccan beauty and relaxation.</p>
-            <div class="price">$45</div>
+            <div class="price-row">
+              <div class="price">$40</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'hammam-massage')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -329,12 +389,18 @@
           </div>
         </div>
 
-        <div class="menu-item">
+        <div  class="menu-item">
           <img src="img/dunes.png" alt="Quad Bike" class="menu-item-image" />
           <div class="menu-item-content">
             <h3>Quad Bike Tour in the Sand</h3>
             <p>Adventure through dunes and Berber villages on quad bikes.</p>
-            <div class="price">$55</div>
+            <div class="price-row">
+              <div class="price">$30</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'quad-bike')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -365,11 +431,17 @@
         <div class="menu-item">
           <img src="img/souk.png" alt="Taroudant" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Taroudant Trip from Agadir & Taghazout</h3>
+            <h3>Taroudant Trip</h3>
             <p>
               Discover Morocco’s historic walled city and its vibrant souks.
             </p>
-            <div class="price">$50</div>
+            <div class="price-row">
+              <div class="price">$50</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'taroudant-trip')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -396,7 +468,13 @@
             <p>
               A nature getaway with diverse wildlife and stunning landscapes.
             </p>
-            <div class="price">$45</div>
+            <div class="price-row">
+              <div class="price">$45</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'souss-park')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -416,13 +494,19 @@
         <div class="menu-item">
           <img src="img/pic2.jpg" alt="Cable Car" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Cable Car Tour from Agadir & Taghazout</h3>
+            <h3>Telepherique in Agadir</h3>
             <p>Panoramic views of Agadir from above.</p>
-            <div class="price">$25</div>
+            <div class="price-row">
+              <div class="price">$25</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'Telepherique')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
-                onclick="toggleTour(this, 'cable-car')"
+                onclick="toggleTour(this, 'Telepherique')"
                 title="Add to Plan">
                 <i class="fas fa-plus"></i>
               </button>
@@ -443,7 +527,13 @@
           <div class="menu-item-content">
             <h3>Paradise Valley Trip</h3>
             <p>Swim in natural springs surrounded by lush scenery.</p>
-            <div class="price">$30</div>
+            <div class="price-row">
+              <div class="price">$20</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'paradise-valley')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -465,7 +555,13 @@
           <div class="menu-item-content">
             <h3>Sandboarding from Agadir & Taghazout</h3>
             <p>Exhilarating rides down desert dunes.</p>
-            <div class="price">$45</div>
+            <div class="price-row">
+              <div class="price">$25</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'sandboarding')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -488,9 +584,15 @@
             alt="Camel Ride"
             class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Camel Ride Tour in Agadir & Taghazout</h3>
+            <h3>Camel Ride Tour</h3>
             <p>Unforgettable camel rides along scenic routes.</p>
-            <div class="price">$25</div>
+            <div class="price-row">
+              <div class="price">$25</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'camel-ride')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -507,7 +609,7 @@
           </div>
         </div>
 
-        <div class="menu-item">
+        <!-- <div class="menu-item">
           <img src="img/souk.png" alt="Marrakech" class="menu-item-image" />
           <div class="menu-item-content">
             <h3>Marrakech Day Trip</h3>
@@ -527,14 +629,20 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="menu-item">
           <img src="img/souk.png" alt="City Tour" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>City Tour from Agadir & Taghazout</h3>
+            <h3>City Tour</h3>
             <p>Discover Agadir’s highlights and bustling souks.</p>
-            <div class="price">$25</div>
+            <div class="price-row">
+              <div class="price">$25</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'city-tour')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -551,7 +659,7 @@
           </div>
         </div>
 
-        <div class="menu-item">
+        <!-- <div class="menu-item">
           <img src="img/pic7.jpg" alt="Essaouira" class="menu-item-image" />
           <div class="menu-item-content">
             <h3>Essaouira Day Trip</h3>
@@ -573,14 +681,20 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="menu-item">
           <img src="img/pic5.jpg" alt="Boat Trip" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Boat Trip from Agadir & Taghazout</h3>
+            <h3>Boat Trip</h3>
             <p>Enjoy the thrill of sailing in Agadir’s bay.</p>
-            <div class="price">$40</div>
+            <div class="price-row">
+              <div class="price">$45</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'boat-trip')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -611,9 +725,15 @@
         <div class="menu-item">
           <img src="img/pic1.jpg" alt="Crocoparc" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Crocoparc Tour from Agadir</h3>
+            <h3>Crocoparc Tour</h3>
             <p>See over 300 Nile crocodiles in a tropical setting.</p>
-            <div class="price">$35</div>
+            <div class="price-row">
+              <div class="price">$25</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'crocoparc')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -633,11 +753,17 @@
         <div class="menu-item">
           <img src="img/pic5.jpg" alt="Dolphin Show" class="menu-item-image" />
           <div class="menu-item-content">
-            <h3>Dolphin Show in Agadir</h3>
+            <h3>Dolphin Show</h3>
             <p>
               A 60-minute show with dolphins performing tricks and interactions.
             </p>
-            <div class="price">$30</div>
+            <div class="price-row">
+              <div class="price">$30</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'dolphin-show')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -654,7 +780,7 @@
           </div>
         </div>
 
-        <div class="menu-item">
+        <!-- <div class="menu-item">
           <img
             src="img/pic2.jpg"
             alt="Hot Air Balloon"
@@ -680,14 +806,20 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="menu-item">
           <img src="img/pic1.jpg" alt="Goats on Tree" class="menu-item-image" />
           <div class="menu-item-content">
             <h3>Goats on the Tree Tour</h3>
             <p>Visit argan trees and interact with playful goats.</p>
-            <div class="price">$20</div>
+            <div class="price-row">
+              <div class="price">$20</div>
+              <label class="transport-label">
+                <input type="checkbox" onchange="toggleTransport(this, 'goats-tree')" />
+                Request Transport (+$40)
+              </label>
+            </div>
             <div class="menu-item-buttons">
               <button
                 class="add-to-plan-btn"
@@ -704,7 +836,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> 
 
     <section id="reservation">
       <div class="reservation">
@@ -740,8 +872,16 @@
                 <input type="time" id="time" name="time" required />
               </div>
               <div class="form-group">
-                <label for="guests">Number of Guests</label>
-                <input type="number" id="guests" name="guests" min="1" value="1" required />
+                <label>Number of Guests</label>
+                <div class="guest-input-wrapper">
+                  <button type="button" class="guest-btn minus" onclick="updateGuestCount(-1)">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <input type="number" id="guests" name="guests" min="1" value="1" readonly style="width: 80px !important; border-radius: 20px !important;" />
+                  <button type="button" class="guest-btn plus" onclick="updateGuestCount(1)">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -805,16 +945,11 @@
       <i class="fas fa-arrow-up"></i>
     </button>
 
+    </main>
+
     <!-- Footer -->
     <footer id="contact">
       <div class="footer-content">
-        <!-- <div class="footer-section">
-           <h3>Opening days</h3>
-           <p>
-             All Days<br />
-             <br />Opening Hours from 9 AM to 7 PM<br />
-           </p>
-         </div> -->
         <div class="footer-section center-text">
           <h3>Contact Us</h3>
           <div class="social-pill mt-1">
