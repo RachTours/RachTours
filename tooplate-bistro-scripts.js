@@ -495,15 +495,17 @@ function calculateTourStats(selectedIds, guestCount) {
 
 function generateTourListHTML(groups) {
   let html = "";
+  // We will build the Rich Text for WhatsApp here as well
   let messageTextParts = [];
 
   for (const [category, items] of Object.entries(groups)) {
     const sectionTotal = items.reduce((sum, item) => sum + item.itemTotal, 0);
 
-    // HTML
+    // HTML Display
     html += `<div class="tour-list-category"><h5>${category}</h5>`;
 
-    // Message Text Part
+    // WhatsApp Text Part
+    // Format: *Category Name* (Section Total: $XXX):
     let sectionMsg = `*${category}* (Section Total: $${sectionTotal}):\n`;
 
     items.forEach((item) => {
@@ -512,7 +514,8 @@ function generateTourListHTML(groups) {
 
       if (item.hasTransport) {
         htmlTitleSuffix = `<span style="font-size:0.8em; color:#27ae60; margin-left:5px; font-weight:bold;">(+ Transport)</span>`;
-        messageSuffix = " [INCLUDES TRANSPORT]";
+        // User requested: [Transport Requested] - Tour Name: $Price
+        // So we prefix distinctively in text
       }
 
       html += `
@@ -526,7 +529,11 @@ function generateTourListHTML(groups) {
             </div>
         </div>`;
 
-      sectionMsg += `  - ${item.title}${messageSuffix}: $${item.itemTotal}\n`;
+      // Text Formatting
+      // If transport: [Transport Requested] - Name: $Price
+      // If no transport: - Name: $Price
+      const prefix = item.hasTransport ? " [Transport Requested] -" : "  -"; // Indent normal items to align visually
+      sectionMsg += `${prefix} ${item.title}: $${item.itemTotal}\n`;
     });
 
     html += `</div>`;
@@ -724,6 +731,48 @@ async function handleReservation(event) {
     hasTransport: !!transportSelections[tourId],
   }));
 
+  // ---------------------------------------------------------
+  // Generate Rich WhatsApp Message Content (Frontend Side)
+  // ---------------------------------------------------------
+  // We calculate totals again to be safe (or reuse display logic)
+  const guestCountInt = parseInt(guests) || 1;
+  const { groups, totalReservationPrice } = calculateTourStats(
+    selectedTours,
+    guestCountInt
+  );
+  const { messageText } = generateTourListHTML(groups);
+
+  // Emojis and Formatting as requested:
+  // 🌟 *New Reservation Request* 🌟
+  // 👤 *Name:* ...
+  // ...
+  // 🎒 *Selected Tours & Breakdown:*
+  // ...
+  // 💰 *Total Price:* ...
+  // 📝 *Special Request:* ...
+
+  let fullWhatsAppBody = `🌟 *New Reservation Request* 🌟\n\n`;
+  fullWhatsAppBody += `👤 *Name:* ${name}\n`;
+  fullWhatsAppBody += `📱 *Phone:* ${phone}\n\n`;
+  fullWhatsAppBody += `🗓 *Date:* ${date}\n`;
+  fullWhatsAppBody += `⏰ *Time:* ${time}\n`;
+  fullWhatsAppBody += `👥 *Guests:* ${guests}\n`;
+
+  if (special && special.trim() !== "") {
+    fullWhatsAppBody += `📝 *Special Request:*\n${special}\n`;
+  }
+
+  fullWhatsAppBody += `\n\n🎒 *Selected Tours & Breakdown:*\n`;
+  fullWhatsAppBody += messageText; // This already contains grouped sections
+
+  fullWhatsAppBody += `\n💰 *Total Price:* $${totalReservationPrice}\n`;
+
+  // If user really wants Special Request repeated at bottom (per example), we can add it.
+  // The example showed it at top AND bottom. I'll add it at bottom for sure as it's a good summary.
+  if (special && special.trim() !== "") {
+    fullWhatsAppBody += `\n📝 *Special Request:* \n${special}`;
+  }
+
   const formData = {
     name: escapeHtml(name),
     // email removed
@@ -732,7 +781,9 @@ async function handleReservation(event) {
     time: escapeHtml(time),
     guests: escapeHtml(guests),
     special: escapeHtml(special),
-    selectedTours: structuredSelectedTours, // Send structured data for server-side calculation
+    selectedTours: structuredSelectedTours, // Keep original data for validation if needed
+    // NEW FIELD: The fully formatted message
+    whatsappMessageBody: fullWhatsAppBody,
   };
 
   try {

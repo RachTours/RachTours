@@ -81,24 +81,30 @@ app.post("/send-whatsapp", async (req, res) => {
     }
 
     // 2. Format Message
-    let messageBody = `*New Reservation Request*\n\n`;
-    messageBody += `👤 *Name:* ${safeName}\n`;
-    messageBody += `📞 *Phone:* ${safePhone}\n`;
-    messageBody += `📅 *Date:* ${safeDate}\n`;
-    messageBody += `⏰ *Time:* ${safeTime}\n`;
-    messageBody += `👥 *Guests:* ${safeGuests}\n`;
+    // Use the pre-formatted message if provided by the frontend, otherwise fallback to basic
+    let messageBody = req.body.whatsappMessageBody;
 
-    if (safeSpecial) {
-      messageBody += `📝 *Note:* ${safeSpecial}\n`;
+    if (!messageBody) {
+      // Fallback Logic (Legacy)
+      messageBody = `*New Reservation Request*\n\n`;
+      messageBody += `👤 *Name:* ${safeName}\n`;
+      messageBody += `📞 *Phone:* ${safePhone}\n`;
+      messageBody += `📅 *Date:* ${safeDate}\n`;
+      messageBody += `⏰ *Time:* ${safeTime}\n`;
+      messageBody += `👥 *Guests:* ${safeGuests}\n`;
+
+      if (safeSpecial) {
+        messageBody += `📝 *Note:* ${safeSpecial}\n`;
+      }
+
+      messageBody += `\n*Selected Tours:*\n`;
+
+      selectedTours.forEach((item) => {
+        const tourIdFormatted = item.tourId.replace(/-/g, " ").toUpperCase();
+        const transportText = item.hasTransport ? " [Transport Requested]" : "";
+        messageBody += `- ${tourIdFormatted}${transportText}\n`;
+      });
     }
-
-    messageBody += `\n*Selected Tours:*\n`;
-
-    selectedTours.forEach((item) => {
-      const tourIdFormatted = item.tourId.replace(/-/g, " ").toUpperCase();
-      const transportText = item.hasTransport ? " [Transport Requested]" : "";
-      messageBody += `- ${tourIdFormatted}${transportText}\n`;
-    });
 
     // 3. Send to WhatsApp Graph API
     const url = `https://graph.facebook.com/v17.0/${PHONE_NUMBER_ID}/messages`;
