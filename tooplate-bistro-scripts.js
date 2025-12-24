@@ -619,12 +619,12 @@ function closeConfirmationModal() {
   modal.style.display = "none";
 }
 
-function confirmClearAll() {
-  // 1. Native Form Reset (Most Reliable)
+function resetApplicationState() {
+  // 1. Native Form Reset
   const form = document.querySelector(".reservation-form");
   if (form) form.reset();
 
-  // 2. Force Reset Fields by ID (Redundant Safety)
+  // 2. Force Reset Fields by ID
   const fields = ["name", "phone", "date", "time", "special"];
   fields.forEach((id) => {
     const el = document.getElementById(id);
@@ -644,8 +644,7 @@ function confirmClearAll() {
   });
   transportSelections = {};
 
-  // 4. Manual Checkbox Reset (Visual Only - No Events)
-  // We avoid dispatching events to prevent circular logic or side effects.
+  // 4. Manual Checkbox Reset
   document.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
     cb.checked = false;
   });
@@ -655,19 +654,19 @@ function confirmClearAll() {
     updateCardPrice(id);
   });
 
-  // 6. Reset UI Buttons (Add/Remove Buttons)
+  // 6. Reset UI Buttons
   updateAllButtons();
 
-  // 7. Reset Section Helper Buttons (Select/Unselect All) <-- CRITICAL MISSING PIECE
+  // 7. Reset Section Helper Buttons
   updateSectionHelperButtons();
 
   // 8. Update Display
   updateSelectedToursDisplay();
+}
 
-  // 9. Close Modal
+function confirmClearAll() {
+  resetApplicationState();
   closeConfirmationModal();
-
-  // 10. Toast Feedback
   showToast(
     "Reset",
     "All selections and form data have been cleared.",
@@ -756,12 +755,7 @@ async function handleReservation(event) {
 
     if (result.success) {
       showToast("Success!", "Reservation sent successfully !", "success");
-      event.target.reset();
-
-      // Reset selected tours
-      selectedTours = [];
-      updateSelectedToursDisplay();
-      updateAllButtons();
+      resetApplicationState();
     } else {
       // Enhanced Error Reporting for User/Admin
       console.error("Backend Error Details:", result.error);
