@@ -1,9 +1,18 @@
 const express = require("express");
 const path = require("path");
+// ADDED: Load environment variables from .env file
+require("dotenv").config();
 const axios = require("axios");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Warn if essential variables are missing
+if (!process.env.WHATSAPP_TOKEN) {
+  console.warn(
+    "WARNING: WHATSAPP_TOKEN is not set. WhatsApp messages will fail."
+  );
+}
 
 // --- Security Middleware ---
 app.use((req, res, next) => {
