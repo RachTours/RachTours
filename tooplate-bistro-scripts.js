@@ -751,7 +751,14 @@ async function handleReservation(event) {
   // 💰 *Total Price:* ...
   // 📝 *Special Request:* ...
 
-  let fullWhatsAppBody = `🌟 *New Reservation Request* 🌟\n\n`;
+  // Clean phone for the link (remove non-digits, keep formatting simple)
+  // If phone starts with 0 (e.g. 06...), we often want international format for the link (e.g. 2126...),
+  // but simply stripping non-digits is a safe baseline or using the input as is if it includes country code.
+  const cleanPhone = phone.replace(/\D/g, "");
+  const replyLink = `https://wa.me/${cleanPhone}`;
+
+  let fullWhatsAppBody = `🌟 *New Reservation Request* 🌟\n`;
+  fullWhatsAppBody += `━━━━━━━━━━━━━━━━━━\n`;
   fullWhatsAppBody += `👤 *Name:* ${name}\n`;
   fullWhatsAppBody += `📱 *Phone:* ${phone}\n\n`;
   fullWhatsAppBody += `🗓 *Date:* ${date}\n`;
@@ -762,16 +769,19 @@ async function handleReservation(event) {
     fullWhatsAppBody += `📝 *Special Request:*\n${special}\n`;
   }
 
-  fullWhatsAppBody += `\n\n🎒 *Selected Tours & Breakdown:*\n`;
+  fullWhatsAppBody += `━━━━━━━━━━━━━━━━━━\n`;
+  fullWhatsAppBody += `🎒 *Selected Tours & Breakdown:*\n`;
   fullWhatsAppBody += messageText; // This already contains grouped sections
 
-  fullWhatsAppBody += `\n💰 *Total Price:* $${totalReservationPrice}\n`;
+  fullWhatsAppBody += `━━━━━━━━━━━━━━━━━━\n`;
+  fullWhatsAppBody += `💰 *Total Price:* $${totalReservationPrice}\n`;
 
-  // If user really wants Special Request repeated at bottom (per example), we can add it.
-  // The example showed it at top AND bottom. I'll add it at bottom for sure as it's a good summary.
   if (special && special.trim() !== "") {
     fullWhatsAppBody += `\n📝 *Special Request:* \n${special}`;
   }
+
+  fullWhatsAppBody += `\n\n══════════════════\n`;
+  fullWhatsAppBody += `👉 *Click to Reply:* ${replyLink}`;
 
   const formData = {
     name: escapeHtml(name),
