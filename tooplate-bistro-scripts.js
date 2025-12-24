@@ -765,17 +765,17 @@ async function handleReservation(event) {
   fullWhatsAppBody += `⏰ *Time:* ${time}\n`;
   fullWhatsAppBody += `👥 *Guests:* ${guests}\n`;
 
-  if (special && special.trim() !== "") {
-    fullWhatsAppBody += `📝 *Special Request:*\n${special}\n`;
-  }
 
   fullWhatsAppBody += `━━━━━━━━━━━━━━━━━━\n`;
   fullWhatsAppBody += `🎒 *Selected Tours & Breakdown:*\n`;
   fullWhatsAppBody += messageText; // This already contains grouped sections
 
+
+
   fullWhatsAppBody += `━━━━━━━━━━━━━━━━━━\n`;
   fullWhatsAppBody += `💰 *Total Price:* $${totalReservationPrice}\n`;
 
+  // Add special request if it exists
   if (special && special.trim() !== "") {
     fullWhatsAppBody += `\n📝 *Special Request:* \n${special}`;
   }
