@@ -1,179 +1,127 @@
-require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const axios = require("axios");
 const path = require("path");
-const helmet = require("helmet");
-const xss = require("xss-clean");
-const hpp = require("hpp");
-const rateLimit = require("express-rate-limit");
+const axios = require("axios");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Security Middleware
-app.use(
-  helmet({
-    contentSecurityPolicy: false, // We handle CSP via meta tag for transparency with frontend code
-    hsts: {
-      maxAge: 31536000, // 1 year
-      includeSubDomains: true,
-      preload: true,
-    },
-    frameguard: {
-      action: "deny",
-    },
-    noSniff: true,
-    xssFilter: true, // Deprecated in modern browsers but good fallback
-  })
-);
-app.use(xss());
-app.use(hpp());
-app.use(cors()); // Configure origin in production if needed
-
-// Rate Limiting
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
-
-app.use(express.json());
-app.use(express.static(__dirname)); // Serve static files (HTML, CSS, JS)
-
-// Debug Middleware: Log all requests
+// --- Security Middleware ---
 app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  console.log("Headers:", req.headers);
-  if (req.method === "POST") {
-    console.log("Body:", JSON.stringify(req.body, null, 2));
-  }
+  // Content Security Policy
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://graph.facebook.com;"
+  );
+  // Secure Headers
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains"
+  );
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   next();
 });
 
-const { body, validationResult } = require("express-validator");
+// --- Middleware ---
+app.use(express.static(__dirname)); // Serve static files
+app.use(express.json()); // Parse JSON bodies
 
-// Route to handle WhatsApp sending
-app.post(
-  "/send-whatsapp",
-  [
-    // Validation & Sanitization
-    body("name").trim().escape().notEmpty().withMessage("Name is required"),
-    body("phone").trim().escape().notEmpty().withMessage("Phone is required"),
-    body("date").trim().escape().notEmpty(),
-    body("time").trim().escape().notEmpty(),
-    body("guests").isInt({ min: 1 }).withMessage("Guests must be at least 1"),
-    body("special").trim().escape(),
-    // selectedTours is a string (formatted text), just trim/escape
-    body("selectedTours").trim().escape(),
-  ],
-  async (req, res) => {
-    // Check for validation errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+// --- Configuration ---
+const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const MY_PHONE_NUMBER = process.env.MY_PHONE_NUMBER;
+
+// --- Helpers ---
+function sanitizeInput(str) {
+  if (typeof str !== "string") return "";
+  // Basic sanitization: remove potential HTML tags
+  return str.replace(/[<>]/g, "").trim();
+}
+
+// --- Routes ---
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// Endpoint to handle form submission and send to WhatsApp
+app.post("/send-whatsapp", async (req, res) => {
+  try {
+    const { name, phone, date, time, guests, special, selectedTours } =
+      req.body;
+
+    // 1. Sanitize & Validate
+    const safeName = sanitizeInput(name);
+    const safePhone = sanitizeInput(phone);
+    const safeDate = sanitizeInput(date);
+    const safeTime = sanitizeInput(time);
+    const safeGuests = parseInt(guests) || 1;
+    const safeSpecial = sanitizeInput(special);
+
+    if (
+      !safeName ||
+      !safePhone ||
+      !Array.isArray(selectedTours) ||
+      selectedTours.length === 0
+    ) {
       return res.status(400).json({
         success: false,
-        error: { message: "Validation Failed", details: errors.array() },
+        message: "Missing required fields or no tours selected.",
       });
     }
 
-    try {
-      const {
-        name,
-        phone,
-        date,
-        time,
-        guests,
-        special,
-        selectedTours,
-        totalPrice,
-      } = req.body;
+    // 2. Format Message
+    let messageBody = `*New Reservation Request*\n\n`;
+    messageBody += `👤 *Name:* ${safeName}\n`;
+    messageBody += `📞 *Phone:* ${safePhone}\n`;
+    messageBody += `📅 *Date:* ${safeDate}\n`;
+    messageBody += `⏰ *Time:* ${safeTime}\n`;
+    messageBody += `👥 *Guests:* ${safeGuests}\n`;
 
-      const accessToken = process.env.ACCESS_TOKEN;
-      const phoneNumberId = process.env.PHONE_NUMBER_ID;
-      const recipientPhone = process.env.RECIPIENT_PHONE;
-
-      if (!accessToken || !phoneNumberId || !recipientPhone) {
-        console.error("Missing environment variables");
-        return res
-          .status(500)
-          .json({ success: false, message: "Server configuration error" });
-      }
-
-      // Construct a beautiful WhatsApp-style message
-      let messageBody =
-        `🌟 *New Reservation Request* 🌟\n\n` +
-        `👤 *Name:* ${name}\n` +
-        `📱 *Phone:* ${phone}\n\n` +
-        `🗓 *Date:* ${date}\n` +
-        `⏰ *Time:* ${time}\n` +
-        `👥 *Guests:* ${guests}\n\n`;
-
-      if (selectedTours && selectedTours.trim()) {
-        // It is already formatted by the frontend
-        // Unescape specifically for the message body if needed, but 'escape' might break newlines?
-        // Actually express-validator escape() replaces <, >, &, ', " and /.
-        // It does NOT escape \n. So newlines are preserved?
-        // Wait, validator.escape() escapes HTML characters. It generally shouldn't affect plain text newlines unless they are encoded?
-        // But frontend sends literal \n.
-        // Let's assume escape is fine for security. If it breaks formatting (e.g. & to &amp;) we might see &amp; in WhatsApp.
-        // WhatsApp treats text as plain text.
-        // If I escape, "A & B" becomes "A &amp; B". Accessing via WhatsApp API, this might show as "&amp;".
-        // Better to use a specific sanitizer that strips dangerous chars or just rely on the fact that WhatsApp is text-only?
-        // But we are vulnerable to XSS? The backend just sends to WhatsApp.
-        // The danger is if we log it or render it in an Admin Dashboard.
-        // I will stick to trim() and maybe blacklist <>?
-        // Let's use trim() and check logic.
-        messageBody += `🎒 *Selected Tours & Breakdown:*\n${selectedTours}\n\n`;
-      }
-
-      if (totalPrice) {
-        messageBody += `💰 *Total Price:* ${totalPrice}\n\n`;
-      }
-
-      messageBody += `📝 *Special Request:*\n${special || "None"}`;
-
-      // WhatsApp API Payload
-      const payload = {
-        messaging_product: "whatsapp",
-        to: recipientPhone,
-        type: "text",
-        text: {
-          body: messageBody,
-        },
-      };
-
-      const response = await axios.post(
-        `https://graph.facebook.com/v22.0/${phoneNumberId}/messages`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("WhatsApp API Response:", response.data);
-      res.json({ success: true, message: "Message sent successfully!" });
-    } catch (error) {
-      console.error(
-        "Error sending WhatsApp message:",
-        error.response ? error.response.data : error.message
-      );
-      res.status(500).json({
-        success: false,
-        message: "Failed to send message",
-        error: error.response ? error.response.data : error.message,
-      });
+    if (safeSpecial) {
+      messageBody += `📝 *Note:* ${safeSpecial}\n`;
     }
+
+    messageBody += `\n*Selected Tours:*\n`;
+
+    selectedTours.forEach((item) => {
+      const tourIdFormatted = item.tourId.replace(/-/g, " ").toUpperCase();
+      const transportText = item.hasTransport ? " [Transport Requested]" : "";
+      messageBody += `- ${tourIdFormatted}${transportText}\n`;
+    });
+
+    // 3. Send to WhatsApp Graph API
+    const url = `https://graph.facebook.com/v17.0/${PHONE_NUMBER_ID}/messages`;
+    const payload = {
+      messaging_product: "whatsapp",
+      to: MY_PHONE_NUMBER,
+      type: "text",
+      text: { body: messageBody },
+    };
+
+    const response = await axios.post(url, payload, {
+      headers: {
+        Authorization: `Bearer ${WHATSAPP_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res.status(200).json({ success: true, data: response.data });
+  } catch (error) {
+    console.error(
+      "WhatsApp API Error:",
+      error.response ? error.response.data : error.message
+    );
+    return res.status(500).json({
+      success: false,
+      message: "Failed to send WhatsApp message.",
+      error: error.response ? error.response.data : error.message,
+    });
   }
-);
+});
 
-// Start server
+// --- Start Server ---
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-  console.log(
-    "Ensure you have your .env file configured with WhatsApp credentials."
-  );
+  console.log(`Server running securely on port ${PORT}`);
 });

@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rach Tours - Your premier choice for local tours, day trips, and unique attractions in Agadir and Taghazout. Book your adventure today!" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data: https:; upgrade-insecure-requests;" />
+      content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; upgrade-insecure-requests;" />
     <title>Rach Tours</title>
+    <script src="data.js"></script>
     <link rel="stylesheet" href="tooplate-bistro-elegance.css?v=2" />
     <link
       rel="stylesheet"
@@ -26,8 +28,16 @@
             <li><a href="#local-tours">Local Tours</a></li>
             <li><a href="#day-trips">Day Trips</a></li>
             <li><a href="#unique-attractions">Unique Attractions</a></li>
-            <li><a href="#reservation">Book Now</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            <li>
+              <a href="#reservation" title="Book Now">
+                <i class="fas fa-shopping-cart modern-icon"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#contact" title="Contact Us">
+                <i class="fas fa-phone modern-icon"></i>
+              </a>
+            </li>
           </ul>
           <div class="menu-toggle">
             <span></span>
@@ -780,33 +790,7 @@
           </div>
         </div>
 
-        <!-- <div class="menu-item">
-          <img
-            src="img/pic2.jpg"
-            alt="Hot Air Balloon"
-            class="menu-item-image" />
-          <div class="menu-item-content">
-            <h3>Hot Air Balloon Trip</h3>
-            <p>
-              Soar above Atlas Mountains, coastline, and desert for breathtaking
-              views.
-            </p>
-            <div class="price">$220</div>
-            <div class="menu-item-buttons">
-              <button
-                class="add-to-plan-btn"
-                onclick="toggleTour(this, 'hot-air-balloon')"
-                title="Add to Plan">
-                <i class="fas fa-plus"></i>
-              </button>
-              <button
-                class="ingredients-btn"
-                onclick="showTourDetails('hot-air-balloon')">
-                View Details
-              </button>
-            </div>
-          </div>
-        </div> -->
+
 
         <div class="menu-item">
           <img src="img/pic1.jpg" alt="Goats on Tree" class="menu-item-image" />
@@ -906,7 +890,7 @@
                 <button
                   type="button"
                   id="clear-all-btn"
-                  onclick="clearAllTours()"
+                  onclick="showConfirmationModal()" 
                   class="clear-btn-styled">
                   Clear All
                 </button>

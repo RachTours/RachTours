@@ -256,245 +256,15 @@ function createBottomRightDecoration() {
 
 // --- E-Commerce / Cart Logic ---
 
-// Centralized Tour Data
-const TOURS = {
-  "souk-tour": {
-    title: "Agadir Souk El Had Tour",
-    category: "Local Tours & Experiences",
-    price: 15,
-    details: [
-      "Duration: 1-4 Hours",
-      "Pick up: Any time",
-      "Free time to explore the market independently",
-      "Discover spices, crafts, and local culture",
-    ],
-  },
-  "small-desert": {
-    title: "Small Desert Trip from Agadir & Taghazout",
-    category: "Local Tours & Experiences",
-    price: 30,
-    details: [
-      "Duration: 5-6 Hours",
-      "Pick up: Any time",
-      "Explore sand dunes and Berber villages",
-      "Traditional Moroccan tea break (optional)",
-    ],
-  },
-  "horse-riding": {
-    title: "Horse Riding",
-    category: "Local Tours & Experiences",
-    price: 20,
-    details: [
-      "Duration: 2 Hours",
-      "Ride along the beach and tamri village river",
-      "Suitable for all skill levels",
-      "Equipment and guide included",
-      "Beautiful sunset option available",
-    ],
-  },
-  "airport-transfer": {
-    title: "Airport Transfer",
-    category: "Local Tours & Experiences",
-    price: 35,
-    details: [
-      "Private comfortable vehicle",
-      "Professional driver",
-      "Meet and greet service at airport",
-      "Available 24/7",
-      "Fixed price, no hidden fees",
-    ],
-  },
-  "sahara-dunes": {
-    title: "Sahara Dunes Trip",
-    category: "Local Tours & Experiences",
-    price: 25,
-    details: [
-      "Full day adventure",
-      "Explore massive sand dunes",
-      "Scenic drive through Anti-Atlas mountains",
-    ],
-  },
-  "cooking-class": {
-    title: "Cooking Class",
-    category: "Local Tours & Experiences",
-    price: 40,
-    details: [
-      "Duration: 4 Hours",
-      "Market visit for ingredients",
-      "Learn to cook Tagine or Couscous",
-      "Enjoy your meal afterwards",
-    ],
-  },
-  "old-medina": {
-    title: "Visit Old Medina of Agadir",
-    category: "Local Tours & Experiences",
-    price: 20,
-    details: [
-      "Duration: 2-3 Hours",
-      "Admire traditional masonry and architecture",
-      "Visit artisan workshops",
-      "Great photo opportunities",
-      "Entrance fee included",
-    ],
-  },
-  "buggy-tour": {
-    title: "Buggy Tour",
-    category: "Local Tours & Experiences",
-    price: 65,
-    details: [
-      "Duration: 1 Hours (driving)",
-      "Safety briefing and gear included",
-      "Tea break (optinal)",
-    ],
-  },
-  "hammam-massage": {
-    title: "Moroccan Hammam & Massage (2h)",
-    category: "Local Tours & Experiences",
-    price: 40,
-    details: [
-      "1 Hour Traditional Hammam (Scrub)",
-      "1 Hour Relaxing Massage with Argan Oil",
-      "Towels and slippers provided",
-      "Ultimate relaxation experience",
-    ],
-  },
-  "quad-bike": {
-    title: "Quad Bike Tour in the Sand",
-    category: "Local Tours & Experiences",
-    price: 30,
-    details: [
-      "Duration: 1 Hours",
-      "Ride through dunes and beach",
-      "Safety equipment provided",
-      "Briefing for beginners",
-    ],
-  },
-  "taroudant-trip": {
-    title: "Taroudant Trip",
-    category: "Day Trips & Excursions",
-    price: 50,
-    details: [
-      "Duration: Half Day or Full Day",
-      'Explore the "Little Marrakech"',
-      "Visit ancient ramparts and souks",
-      "See the Tiout Oasis",
-      "Hotel pickup included",
-    ],
-  },
-  "souss-park": {
-    title: "Souss National Park Trip",
-    category: "Day Trips & Excursions",
-    price: 45,
-    details: [
-      "Guided nature walk",
-      "Spot migratory birds including flamingos",
-      "Visit the museum of the park",
-      "Ideal for nature lovers",
-      "Morning tour recommended",
-    ],
-  },
-  Telepherique: {
-    title: "Telepherique in Agadir",
-    category: "Day Trips & Excursions",
-    price: 25,
-    details: [
-      "Ride to the historic Kasbah Oufella",
-      "Panoramic views of the city and bay",
-      "Modern comfortable cabins",
-      "Driver waits for return trip",
-      "Ticket included",
-    ],
-  },
-  "paradise-valley": {
-    title: "Paradise Valley Trip",
-    category: "Day Trips & Excursions",
-    price: 20,
-    details: [
-      "Half day trip",
-      "Short hike through palm groves",
-      "Swimming in natural rock pools",
-      "Stunning photography spots",
-    ],
-  },
-  sandboarding: {
-    title: "Sandboarding",
-    category: "Day Trips & Excursions",
-    price: 25,
-    details: [
-      "Combine with half-day desert trip",
-      "Boards provided",
-      "Slide down the steep dunes",
-      "panoramic view",
-      "Fun for all ages",
-    ],
-  },
-  "camel-ride": {
-    title: "Camel Ride Tour",
-    category: "Day Trips & Excursions",
-    price: 25,
-    details: [
-      "1 Hours riding experience",
+// --- E-Commerce / Cart Logic ---
 
-      "Flamingo spotting (seasonally)",
-      "Pick up and drop off included",
-    ],
-  },
-  "city-tour": {
-    title: "City Tour from Agadir & Taghazout",
-    category: "Day Trips & Excursions",
-    price: 25,
-    details: [
-      "Duration: 3 Hours",
-      "Visit Kasbah Oufella (Historic Fortress)",
-      "Drive through Marina and City Center",
-    ],
-  },
-  "boat-trip": {
-    title: "Boat Trip",
-    category: "Day Trips & Excursions",
-    price: 45,
-    details: ["30 min - 1 h", "Swimming break", "Relaxing atmosphere"],
-  },
-  crocoparc: {
-    title: "Crocoparc Tour",
-    category: "Unique Attractions",
-    price: 25,
-    details: [
-      "Entrance ticket included",
-      "Walk through thematic botanical gardens",
-      "Watch crocodile feeding times",
-      "Educational and fun",
-      "Great for families",
-    ],
-  },
-  "dolphin-show": {
-    title: "Dolphin",
-    category: "Unique Attractions",
-    price: 30,
-    details: [
-      "Show times vary (usually afternoon)",
-      "Watch dolphins and sea lions perform",
-      "Photo opportunities available",
-    ],
-  },
-  "goats-tree": {
-    title: "Goats on the Tree Tour",
-    category: "Unique Attractions",
-    price: 20,
-    details: [
-      "Short trip or included in Essaouira/Marrakech trips",
-      "See goats climbing Argan trees",
-      "Unique to this region of Morocco",
-      "Photo stop",
-      "Visit Argan cooperative",
-    ],
-  },
-};
+// Centralized Tour Data (Loaded from data.js)
+const TOURS = typeof TourData !== "undefined" ? TourData.TOURS : {};
+const TRANSPORT_FEE =
+  typeof TourData !== "undefined" ? TourData.TRANSPORT_FEE : 40;
 
 let selectedTours = []; // Array of tour IDs
 let transportSelections = {}; // Object to track transport status: { 'tour-id': true/false }
-
-const TRANSPORT_FEE = 40; // Centralized transport fee
 
 // --- Functionality to Toggle Transport Selection ---
 function toggleTransport(checkbox, tourId) {
@@ -571,6 +341,20 @@ function toggleTour(btn, tourId) {
     // Change icon back to Plus
     btn.innerHTML = '<i class="fas fa-plus"></i>';
     btn.classList.remove("selected");
+
+    // NEW: If transport was selected, deselect it automatically
+    if (transportSelections[tourId]) {
+      transportSelections[tourId] = false;
+      // Uncheck the graphical checkbox
+      const checkbox = document.querySelector(
+        `.transport-label input[onchange*="'${tourId}'"]`
+      );
+      if (checkbox) {
+        checkbox.checked = false;
+      }
+      // Revert price display to base price
+      updateCardPrice(tourId);
+    }
   }
 
   updateSelectedToursDisplay();
@@ -593,13 +377,29 @@ function toggleAllInSection(category, btn) {
     // Remove all items of this category from selectedTours
     tourIds.forEach((id) => {
       const index = selectedTours.indexOf(id);
-      if (index > -1) selectedTours.splice(index, 1);
+      if (index > -1) {
+        selectedTours.splice(index, 1);
+
+        // NEW: Also clear Transport Selection
+        if (transportSelections[id]) {
+          transportSelections[id] = false;
+          // Visual Reset
+          const checkbox = document.querySelector(
+            `.transport-label input[onchange*="'${id}'"]`
+          );
+          if (checkbox) checkbox.checked = false;
+          updateCardPrice(id);
+        }
+      }
     });
     // Visual updates handled by updateAllButtons
   } else {
     // If NO posts are selected, select ALL
     tourIds.forEach((id) => {
-      if (!selectedTours.includes(id)) selectedTours.push(id);
+      if (!selectedTours.includes(id)) {
+        selectedTours.push(id);
+        // Note: We do NOT auto-select transport for Select All, user must choose.
+      }
     });
   }
 
@@ -807,19 +607,73 @@ function closeModal() {
   modal.classList.remove("active");
 }
 
-// Close modal when clicking outside
+// --- Confirmation Modal Logic ---
 
-window.onclick = function (event) {
-  const ingredientsModal = document.getElementById("ingredientsModal");
-  if (event.target == ingredientsModal) {
-    ingredientsModal.style.display = "none";
-    ingredientsModal.classList.remove("active");
-  }
-  const confirmationModal = document.getElementById("confirmationModal");
-  if (event.target == confirmationModal) {
-    confirmationModal.style.display = "none";
-  }
-};
+function showConfirmationModal() {
+  const modal = document.getElementById("confirmationModal");
+  modal.style.display = "flex";
+}
+
+function closeConfirmationModal() {
+  const modal = document.getElementById("confirmationModal");
+  modal.style.display = "none";
+}
+
+function confirmClearAll() {
+  // 1. Native Form Reset (Most Reliable)
+  const form = document.querySelector(".reservation-form");
+  if (form) form.reset();
+
+  // 2. Force Reset Fields by ID (Redundant Safety)
+  const fields = ["name", "phone", "date", "time", "special"];
+  fields.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  // Reset Guest Count
+  const guestsEl = document.getElementById("guests");
+  if (guestsEl) guestsEl.value = "1";
+
+  // 3. Clear Global Selection State
+  selectedTours = [];
+
+  // Reset Transport Selections
+  Object.keys(transportSelections).forEach((id) => {
+    transportSelections[id] = false;
+  });
+  transportSelections = {};
+
+  // 4. Manual Checkbox Reset (Visual Only - No Events)
+  // We avoid dispatching events to prevent circular logic or side effects.
+  document.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+    cb.checked = false;
+  });
+
+  // 5. Force Price Reset on All Cards
+  Object.keys(TOURS).forEach((id) => {
+    updateCardPrice(id);
+  });
+
+  // 6. Reset UI Buttons (Add/Remove Buttons)
+  updateAllButtons();
+
+  // 7. Reset Section Helper Buttons (Select/Unselect All) <-- CRITICAL MISSING PIECE
+  updateSectionHelperButtons();
+
+  // 8. Update Display
+  updateSelectedToursDisplay();
+
+  // 9. Close Modal
+  closeConfirmationModal();
+
+  // 10. Toast Feedback
+  showToast(
+    "Reset",
+    "All selections and form data have been cleared.",
+    "success"
+  );
+}
 
 // --- Reservation & WhatsApp Logic ---
 
@@ -866,6 +720,11 @@ async function handleReservation(event) {
       .replace(/'/g, "&#039;");
   };
 
+  const structuredSelectedTours = selectedTours.map((tourId) => ({
+    tourId: tourId,
+    hasTransport: !!transportSelections[tourId],
+  }));
+
   const formData = {
     name: escapeHtml(name),
     // email removed
@@ -874,9 +733,7 @@ async function handleReservation(event) {
     time: escapeHtml(time),
     guests: escapeHtml(guests),
     special: escapeHtml(special),
-    selectedTours: selectedToursInput, // Generated internally, but safe to sanitize if needed. keeping raw structure for formatting usually safe unless compromised logic.
-    totalPrice:
-      document.getElementById("reservation-total-value")?.innerText || "$0",
+    selectedTours: structuredSelectedTours, // Send structured data for server-side calculation
   };
 
   try {
@@ -1058,24 +915,6 @@ function clearAllTours() {
 
 function closeConfirmationModal() {
   document.getElementById("confirmationModal").style.display = "none";
-}
-
-function confirmClearAll() {
-  // Clear array
-  selectedTours = [];
-
-  // Update Display
-  updateSelectedToursDisplay();
-
-  // Reset all buttons in DOM
-  const buttons = document.querySelectorAll(".add-to-plan-btn");
-  buttons.forEach((btn) => {
-    btn.innerHTML = '<i class="fas fa-plus"></i>';
-    btn.classList.remove("selected");
-  });
-
-  // Close Modal
-  closeConfirmationModal();
 }
 
 // --- Guest Count Logic ---
